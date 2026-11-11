@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AccessibilityInfo, Animated, Easing, StyleSheet, View } from 'react-native';
 import Svg, { Path, Rect } from 'react-native-svg';
@@ -29,8 +29,8 @@ export function LogoMark({ size = 96, color = '#FFFFFF' }: { size?: number; colo
 export function AppSplash({ visible, onHidden }: { visible: boolean; onHidden: () => void }) {
   const { scheme } = useTheme();
   const { t } = useTranslation();
-  const opacity = useRef(new Animated.Value(1)).current;
-  const rise = useRef(new Animated.Value(0)).current;
+  const [opacity] = useState(() => new Animated.Value(1));
+  const [rise] = useState(() => new Animated.Value(0));
 
   useEffect(() => {
     let cancelled = false;
