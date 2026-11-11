@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AccessibilityInfo, Animated, Easing, StyleSheet, View } from 'react-native';
 import Svg, { Path, Rect } from 'react-native-svg';
 
+import { FlutedGlass } from './FlutedGlass';
 import { decorativeProps, useNativeDriver } from './platform';
 import { Text } from './Text';
 import { fonts, space } from './theme/tokens';
@@ -55,8 +56,7 @@ export function AppSplash({ visible, onHidden }: { visible: boolean; onHidden: (
     Animated.timing(opacity, { toValue: 0, duration: 420, useNativeDriver }).start(() => onHidden());
   }, [visible, opacity, onHidden]);
 
-  const sky: [string, string, string] =
-    scheme === 'dark' ? ['#0C1A46', '#1E46B8', '#4F86F0'] : ['#123A9E', '#2D66E0', '#9CC4FF'];
+  const dark = scheme === 'dark';
 
   return (
     <Animated.View
@@ -65,11 +65,7 @@ export function AppSplash({ visible, onHidden }: { visible: boolean; onHidden: (
       accessibilityLabel={`${t('common.appName')}. ${t('common.states.loading')}`}
       style={[StyleSheet.absoluteFill, { opacity }]}
     >
-      <LinearGradient colors={sky} locations={[0, 0.55, 1]} style={StyleSheet.absoluteFill} />
-      {/* Soft clouds of light near the horizon. */}
-      <View style={[styles.cloud, styles.cloudA]} />
-      <View style={[styles.cloud, styles.cloudB]} />
-      <View style={[styles.cloud, styles.cloudC]} />
+      <FlutedGlass scheme={dark ? 'dark' : 'light'} />
       <Animated.View
         style={[
           styles.center,
@@ -79,13 +75,18 @@ export function AppSplash({ visible, onHidden }: { visible: boolean; onHidden: (
           },
         ]}
       >
-        <View style={styles.tile}>
-          <LogoMark size={76} />
-        </View>
-        <Text variant="title" color="heroText" style={styles.wordmark}>
+        <LinearGradient
+          colors={['#111C3A', '#2F6BEA']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={[styles.tile, dark ? styles.tileDark : styles.tileLight]}
+        >
+          <LogoMark size={74} />
+        </LinearGradient>
+        <Text variant="title" style={[styles.wordmark, { color: dark ? '#FFFFFF' : '#111C3A' }]}>
           {t('common.appName')}
         </Text>
-        <Text variant="body" color="heroTextSecondary" align="center" style={styles.tagline}>
+        <Text variant="body" align="center" style={[styles.tagline, { color: dark ? '#DCE6FF' : '#2B3A63' }]}>
           {t('common.tagline')}
         </Text>
       </Animated.View>
@@ -102,20 +103,23 @@ const styles = StyleSheet.create({
     paddingBottom: '18%',
   },
   tile: {
-    width: 116,
-    height: 116,
+    width: 112,
+    height: 112,
     borderRadius: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.14)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.28)',
     marginBottom: space.xl,
+    borderWidth: 1,
   },
+  tileLight: {
+    borderColor: 'rgba(255,255,255,0.7)',
+    shadowColor: '#111C3A',
+    shadowOpacity: 0.25,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 8,
+  },
+  tileDark: { borderColor: 'rgba(255,255,255,0.25)' },
   wordmark: { fontFamily: fonts.bold, fontSize: 34, lineHeight: 40, letterSpacing: -0.6 },
-  tagline: { marginTop: space.xs, maxWidth: 280, color: '#E4ECFF' },
-  cloud: { position: 'absolute', borderRadius: 999, backgroundColor: 'rgba(255,255,255,0.16)' },
-  cloudA: { width: 420, height: 160, bottom: -40, left: -120 },
-  cloudB: { width: 360, height: 140, bottom: 30, right: -150 },
-  cloudC: { width: 240, height: 90, bottom: 120, left: -60, backgroundColor: 'rgba(255,255,255,0.10)' },
+  tagline: { marginTop: space.xs, maxWidth: 280 },
 });

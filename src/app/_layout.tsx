@@ -62,7 +62,7 @@ function AppShell() {
   const showApp = !booting && database.status === 'ready';
   return (
     <View style={[styles.flex, { backgroundColor: theme.colors.bg }]}>
-      <StatusBar style={splashGone ? (theme.scheme === 'dark' ? 'light' : 'dark') : 'light'} />
+      <StatusBar style={theme.scheme === 'dark' ? 'light' : 'dark'} />
       {database.status === 'error' ? (
         <View style={styles.center}>
           <ErrorState onRetry={database.retry} />

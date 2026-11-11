@@ -35,5 +35,6 @@ mkdirSync('assets', { recursive: true });
 render(icon, 'assets/icon.png', 1024);
 render(foreground, 'assets/android-icon-foreground.png', 1024);
 render(splash, 'assets/splash-icon.png', 512);
+render(splash.replaceAll('#FFFFFF', '#111C3A'), 'assets/splash-icon-navy.png', 512);
 render(icon, 'assets/favicon.png', 64);
 writeFileSync('assets/brand-mark.svg', icon);

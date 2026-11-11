@@ -36,11 +36,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {
-        backgroundColor: '#1F50C4',
-        image: './assets/splash-icon.png',
+        backgroundColor: '#F4F7FD',
+        image: './assets/splash-icon-navy.png',
         imageWidth: 200,
         resizeMode: 'contain',
-        dark: { backgroundColor: '#1A3A9E', image: './assets/splash-icon.png' },
+        dark: { backgroundColor: '#0B1640', image: './assets/splash-icon.png' },
       },
     ],
     'expo-sqlite',
