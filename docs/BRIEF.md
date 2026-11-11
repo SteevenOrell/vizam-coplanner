@@ -3,11 +3,13 @@
 PART 4 — PROJECT 03: COPLANNER
 
 ## 4.1 Product overview
+
 CoPlanner is a personal finance management application focused on monthly expenses, income tracking, savings, and
 budget planning. It is not intended to function as a real banking service. The product should help users understand
 their spending, organize their finances, set savings targets, and plan future expenses.
 
 ## 4.2 Technology stack
+
 - Mobile: React Native
 - Framework: Expo
 - Language: TypeScript
@@ -21,10 +23,12 @@ their spending, organize their finances, set savings targets, and plan future ex
 Use Supabase Row Level Security to protect user-specific financial information.
 
 ## 4.3 UI/UX references
+
 Use the two banking and finance app screenshots Steeven provided. A written description is in
 `docs/REFERENCES.md`; Steeven may re-attach the images.
 
 Reference A, light financial interface. Study:
+
 - minimal, spacious layouts
 - soft gradients
 - clean account summaries
@@ -34,6 +38,7 @@ Reference A, light financial interface. Study:
 - simple quick actions
 
 Reference B, blue financial dashboard. Study:
+
 - blue gradient treatments
 - premium card design
 - financial metrics
@@ -47,19 +52,20 @@ banking accounts.
 
 Suggested palette:
 
-| Role | Colour |
-|---|---|
-| Primary navy | #111C3A |
+| Role          | Colour  |
+| ------------- | ------- |
+| Primary navy  | #111C3A |
 | Electric blue | #3778F6 |
-| Soft blue | #DDE8FC |
-| Background | #F6F8FC |
-| Text | #172033 |
-| Positive | #16A34A |
-| Warning | #F59E0B |
+| Soft blue     | #DDE8FC |
+| Background    | #F6F8FC |
+| Text          | #172033 |
+| Positive      | #16A34A |
+| Warning       | #F59E0B |
 
 Support both light and dark themes.
 
 ## 4.4 Required screens
+
 1. Onboarding
 2. Authentication
 3. Financial dashboard
@@ -79,6 +85,7 @@ Support both light and dark themes.
 ## 4.5 Core functional requirements
 
 ### Income and expenses
+
 - Add, edit, and delete transactions.
 - Separate income and expenses.
 - Categorize transactions.
@@ -87,6 +94,7 @@ Support both light and dark themes.
 - View monthly summaries.
 
 ### Budget management
+
 - Create monthly budgets.
 - Set spending limits by category.
 - Track the available budget.
@@ -96,6 +104,7 @@ Support both light and dark themes.
 - Plan upcoming expenses.
 
 ### Savings
+
 - Create savings goals.
 - Set target amounts and dates.
 - Record contributions.
@@ -103,6 +112,7 @@ Support both light and dark themes.
 - Visualize savings progress.
 
 ### Recurring expenses
+
 - Track subscriptions.
 - Set recurring bills.
 - Record due dates.
@@ -110,6 +120,7 @@ Support both light and dark themes.
 - Forecast upcoming obligations.
 
 ### Analytics
+
 - Income versus expenses.
 - Category spending.
 - Monthly trends.
@@ -118,6 +129,7 @@ Support both light and dark themes.
 - Budget performance.
 
 ### Currency support
+
 - Support at least CAD and XOF (FCFA).
 - Store currency codes explicitly.
 - Use integer minor units or another precise monetary representation, and account for currencies with different
@@ -125,13 +137,16 @@ Support both light and dark themes.
 - Do not automatically combine amounts from different currencies without a defined exchange-rate policy.
 
 ### Reporting
+
 - Monthly summaries.
 - Category reports.
 - CSV export.
 - Savings reports.
 
 ## 4.6 Architecture requirements
+
 Design PostgreSQL tables for:
+
 - Users/profiles
 - Accounts
 - Transactions
@@ -145,6 +160,7 @@ Design PostgreSQL tables for:
 - UserPreferences
 
 Other requirements:
+
 - Enforce Row Level Security policies.
 - Use safe database operations for financial changes.
 - Do not connect real bank accounts or payment networks in the MVP.

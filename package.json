@@ -7,7 +7,7 @@
     "start": "expo start",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "lint": "expo lint",
+    "lint": "eslint src tests scripts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js",
@@ -56,6 +56,7 @@
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.3.0",
+    "@resvg/resvg-js": "^2.6.2",
     "@testing-library/react-native": "^14.1.0",
     "@types/better-sqlite3": "^9.6.0",
     "@types/jest": "^30.0.0",

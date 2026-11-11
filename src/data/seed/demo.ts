@@ -104,6 +104,44 @@ export const DEMO_NAMES_EN: DemoNames = {
   },
 };
 
+export const DEMO_NAMES_FR: DemoNames = {
+  categories: {
+    salary: 'Salaire',
+    freelance: 'Travail autonome',
+    otherIncome: 'Autres revenus',
+    housing: 'Logement',
+    groceries: 'Épicerie',
+    transport: 'Transport',
+    dining: 'Restaurants',
+    utilities: 'Services',
+    health: 'Santé',
+    subscriptions: 'Abonnements',
+    family: 'Soutien familial',
+    other: 'Autre',
+  },
+  accounts: { chequing: 'Compte courant', savings: 'Épargne', cash: 'Portefeuille FCFA' },
+  goals: { emergency: "Fonds d'urgence", trip: 'Voyage au pays', family: 'Projet familial' },
+  bills: {
+    rent: 'Loyer',
+    phone: 'Forfait mobile',
+    internet: 'Internet maison',
+    streaming: 'Streaming',
+    gym: 'Gym',
+    insurance: 'Assurance locataire',
+    family: 'Soutien familial',
+  },
+  descriptions: {
+    salary: 'Paie',
+    freelance: 'Projet de design',
+    groceries: 'Épicerie',
+    transit: 'Recharge transport',
+    dining: 'Dîner au resto',
+    pharmacy: 'Pharmacie',
+    market: 'Marché',
+    transfer: 'Envoi au pays',
+  },
+};
+
 const CATEGORY_STYLE: Record<CategoryKey, { kind: 'income' | 'expense'; icon: string; color: string }> = {
   salary: { kind: 'income', icon: 'briefcase', color: '#16A34A' },
   freelance: { kind: 'income', icon: 'laptop', color: '#0EA5E9' },
@@ -247,7 +285,9 @@ export async function seedDemoData(db: SqlDriver, today: IsoDate, names: DemoNam
     }
     // A note on one recent transaction (shown on the details screen).
     const recentDining = txs.filter((t) => t.categoryId === cat.dining.id).at(-1);
-    if (recentDining) recentDining.note = 'Team lunch, split three ways.';
+    if (recentDining)
+      recentDining.note =
+        names === DEMO_NAMES_FR ? 'Dîner d’équipe, partagé à trois.' : 'Team lunch, split three ways.';
     for (const t of txs) await putRow(db, transactionsSpec, t);
 
     // This month's budgets (CAD + XOF).

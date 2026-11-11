@@ -5,6 +5,7 @@ The images live only in that chat; this is a written description. Ask Steeven to
 session if the exact pixels are needed.
 
 ## Ref A — "Finora" banking app (dark blue)
+
 - Two iPhone mockups on a deep royal-blue to navy gradient, huge pale wordmark behind them.
 - Dark navy UI (#0f1630-ish) with bright blue (#3b7cf5-ish) accents, light text.
 - Home: avatar + "Hello <name>!" + bell; big balance number with lighter decimals; horizontal carousel of glassy
@@ -14,6 +15,7 @@ session if the exact pixels are needed.
   ("This Month Uses $1,800 / 3,600") with blue-to-lime progress bars and a % pill.
 
 ## Ref B — "Payno" banking app (light silver)
+
 - Three iPhones on pale grey concrete, faint giant wordmark, very light grey/white UI with navy (#2f3f6b-ish) accents.
 - Onboarding: step indicator "1/4", large thin headline "Banking Made Simple", stacked white rounded cards, Skip/Next pills.
 - Home: "Welcome Back" + name + avatar, balance card with eye toggle, quick actions as round outline buttons

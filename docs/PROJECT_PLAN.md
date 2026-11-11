@@ -33,17 +33,18 @@ Risks / needs from Steeven (batched at the end): hosted Supabase project + keys 
 ## Steps
 
 ### Phase 0 — kickoff
+
 - [x] 0.1 Read brief, references, ticktack quirks; write this plan. (main, ~40k)
 
 ### Phase 1 — foundation (main session, Opus) ~450-600k
+
 - [ ] 1.1 Scaffold: package.json (SDK 58 versions from ticktack), app.config.ts, tsconfig, metro (wasm), jest,
       eslint, prettier, .gitignore, .env.example. Verify `expo start --web` boots. (~60k)
 - [ ] 1.2 Money domain `src/domain/money`: currencies (CAD exp 2, XOF exp 0), parse/format without floats, per-currency
       sums, budget math, savings math, recurrence (monthly/weekly/yearly due dates), forecast, CSV. Jest tests. (~90k)
 - [ ] 1.3 Supabase: `supabase/migrations/*.sql` (profiles, user_preferences, accounts, categories, transactions,
       budgets, budget_allocations, savings_goals, savings_contributions, recurring_bills, notifications), checks,
-      indexes, RLS on every table, safe RPCs (record contribution, upsert budget with allocations). PGlite test harness
-      + RLS tests (owner can, other user cannot, anon cannot, cross-user FK cannot). (~130k)
+      indexes, RLS on every table, safe RPCs (record contribution, upsert budget with allocations). PGlite test harness + RLS tests (owner can, other user cannot, anon cannot, cross-user FK cannot). (~130k)
 - [ ] 1.4 Local data: SQLite schema mirroring Postgres, repositories, outbox, sync service (no-op without keys),
       synthetic demo seed (CAD + XOF), data tests. (~120k)
 - [ ] 1.5 Theme (light/dark tokens from the brief palette), UI kit, i18n en/fr, tab + stack skeleton with every route,
@@ -51,20 +52,24 @@ Risks / needs from Steeven (batched at the end): hosted Supabase project + keys 
 - [ ] 1.6 Commit, handoff note. Verify tsc + jest. (~15k)
 
 ### Phase 2 — screens (two Sonnet agents in parallel, disjoint files) ~600-850k
+
 - [ ] 2A Onboarding, Auth, Dashboard, Income overview, Expenses, Activity (search/filter), Transaction details,
       Add/edit transaction. (Sonnet, ~300-420k)
 - [ ] 2B Budgets, Budget category details, Savings goals (+ detail/contribute), Recurring bills, Financial calendar,
       Reports & analytics (+ CSV export), Notifications, Settings & currencies. (Sonnet, ~300-420k)
 
 ### Phase 3 — integration and QA (main session) ~250-350k
+
 - [ ] 3.1 Review both slices, fix integration issues, local notifications for bills/budgets.
 - [ ] 3.2 Quality gate: tsc, lint, prettier, jest, npm audit, secret scan, web layout at 240/390/768/1440.
 - [ ] 3.3 Screenshots of key screens in light and dark (web, Playwright), reviewed and fixed.
 
 ### Phase 4 — delivery ~20k
+
 - [ ] 4.1 `docs/AGENT_HANDOFF.md` with exact next steps and the batched ask for Steeven.
 
 ## Decisions
+
 - Exchange rates: none in the MVP. Amounts in different currencies are never added together; every total is per
   currency. A future FX policy would store dated rates and label converted totals as estimates.
 - Accounts are user-defined "wallets" (cash, chequing, savings…) with a currency. No bank connection, no card

@@ -1,0 +1,70 @@
+{
+  "appName": "CoPlanner",
+  "tagline": "Planifiez votre argent, mois après mois",
+  "demoBadge": "Données de démo",
+  "conceptNote": "Application concept avec des données fictives. Ce n'est pas une banque : elle ne se connecte à aucun compte bancaire et ne déplace pas d'argent.",
+  "tabs": {
+    "home": "Accueil",
+    "activity": "Activité",
+    "add": "Ajouter une transaction",
+    "budgets": "Budgets",
+    "goals": "Objectifs"
+  },
+  "actions": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "close": "Fermer",
+    "back": "Retour",
+    "retry": "Réessayer",
+    "done": "Terminé",
+    "next": "Suivant",
+    "skip": "Passer",
+    "seeAll": "Tout voir",
+    "undo": "Annuler",
+    "confirm": "Confirmer",
+    "showBalances": "Afficher les montants",
+    "hideBalances": "Masquer les montants"
+  },
+  "states": {
+    "loading": "Chargement…",
+    "errorTitle": "Un problème est survenu",
+    "errorBody": "Vos données sont en sécurité sur cet appareil. Réessayez.",
+    "emptyTitle": "Rien pour l'instant"
+  },
+  "kinds": { "income": "Revenu", "expense": "Dépense" },
+  "currency": {
+    "CAD": "Dollar canadien (CAD)",
+    "XOF": "Franc CFA (XOF, FCFA)",
+    "noConversion": "Les montants dans des devises différentes sont affichés séparément. CoPlanner ne les convertit jamais."
+  },
+  "accountKinds": {
+    "cash": "Espèces",
+    "checking": "Courant",
+    "savings": "Épargne",
+    "credit": "Crédit",
+    "other": "Autre"
+  },
+  "frequency": {
+    "weekly_one": "Chaque semaine",
+    "weekly_other": "Toutes les {{count}} semaines",
+    "monthly_one": "Chaque mois",
+    "monthly_other": "Tous les {{count}} mois",
+    "yearly_one": "Chaque année",
+    "yearly_other": "Tous les {{count}} ans"
+  },
+  "dates": {
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "tomorrow": "Demain",
+    "inDays_one": "Dans {{count}} jour",
+    "inDays_other": "Dans {{count}} jours",
+    "daysAgo_one": "Il y a {{count}} jour",
+    "daysAgo_other": "Il y a {{count}} jours"
+  },
+  "a11y": { "hidden": "Montant masqué", "progress": "{{percent}} pour cent" },
+  "uncategorized": "Sans catégorie",
+  "search": "Rechercher"
+}
