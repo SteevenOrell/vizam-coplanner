@@ -1,1 +1,109 @@
-{}
+{
+  "title": "Paramètres",
+  "profile": {
+    "title": "Profil",
+    "name": "Nom affiché",
+    "nameHelp": "Utilisé dans votre message de bienvenue."
+  },
+  "mode": {
+    "demoTitle": "Mode démo",
+    "demoBody": "Des données fictives stockées sur cet appareil. Rien ne quitte votre téléphone.",
+    "reset": "Réinitialiser les données de démo",
+    "resetTitle": "Réinitialiser les données de démo ?",
+    "resetBody": "Vos modifications seront remplacées par de nouvelles données de démo.",
+    "leave": "Quitter la démo",
+    "leaveTitle": "Quitter le mode démo ?",
+    "leaveBody": "Les données de démo seront effacées et vous reviendrez à l’écran d’accueil.",
+    "cloudTitle": "Connecté",
+    "status": {
+      "idle": "À jour",
+      "syncing": "Synchronisation…",
+      "offline": "Hors ligne, synchronisation plus tard",
+      "error": "Problème de synchronisation, réessayez"
+    },
+    "lastSynced": "Dernière synchronisation : {{time}}",
+    "neverSynced": "Pas encore synchronisé durant cette session",
+    "syncNow": "Synchroniser maintenant",
+    "rejected_one": "{{count}} modification n’a pas pu être synchronisée",
+    "rejected_other": "{{count}} modifications n’ont pas pu être synchronisées",
+    "signOut": "Se déconnecter",
+    "signOutTitle": "Se déconnecter ?",
+    "signOutBody": "Les modifications en attente sont d’abord envoyées, puis vos données sont retirées de cet appareil."
+  },
+  "currencies": {
+    "title": "Devises",
+    "primary": "Devise principale",
+    "primaryHelp": "Utilisée pour les totaux du tableau de bord."
+  },
+  "accounts": {
+    "title": "Comptes",
+    "add": "Ajouter un compte",
+    "archived": "Archivé",
+    "empty": "Aucun compte pour l’instant."
+  },
+  "appearance": {
+    "title": "Apparence",
+    "system": "Système",
+    "light": "Clair",
+    "dark": "Sombre"
+  },
+  "language": {
+    "title": "Langue",
+    "en": "English",
+    "fr": "Français"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "bills": "Rappels de factures",
+    "budgets": "Alertes de budget",
+    "reminderDays": "Me rappeler avant l’échéance d’une facture",
+    "onDueDay": "Le jour de l’échéance",
+    "days_one": "{{count}} jour avant",
+    "days_other": "{{count}} jours avant",
+    "fewer": "Un jour de moins",
+    "more": "Un jour de plus"
+  },
+  "privacy": {
+    "title": "Confidentialité",
+    "hide": "Masquer les montants",
+    "hideHelp": "Masque les soldes sur le tableau de bord."
+  },
+  "data": {
+    "title": "Données",
+    "export": "Exporter les transactions (CSV)",
+    "exportHelp": "Toutes les transactions, chacune dans sa propre devise. Les montants ne sont jamais convertis.",
+    "exportEmpty": "Il n’y a aucune transaction à exporter.",
+    "exportDone": "Exportation prête",
+    "exportFailed": "L’exportation a échoué. Réessayez.",
+    "shareTitle": "Transactions CoPlanner"
+  },
+  "about": {
+    "title": "À propos",
+    "version": "Version {{version}}"
+  },
+  "delete": {
+    "title": "Supprimer le compte",
+    "body": "Supprime définitivement votre compte et les données synchronisées dans le nuage.",
+    "confirmTitle": "Supprimer votre compte ?",
+    "confirmBody": "Votre compte et toutes les données synchronisées seront supprimés définitivement. Cette action est irréversible.",
+    "confirm": "Supprimer le compte",
+    "failed": "Impossible de supprimer le compte. Réessayez."
+  },
+  "accountForm": {
+    "newTitle": "Nouveau compte",
+    "editTitle": "Modifier le compte",
+    "name": "Nom du compte",
+    "namePlaceholder": "p. ex. Compte courant",
+    "kind": "Type",
+    "currency": "Devise",
+    "currencyLocked": "La devise ne peut pas être modifiée après la création du compte.",
+    "opening": "Solde d’ouverture",
+    "owed": "Argent dû",
+    "owedHelp": "Activez si c’est un solde que vous devez, comme une carte de crédit ou un prêt.",
+    "archive": "Archiver ce compte",
+    "archiveHelp": "Le masque des soldes et des listes. Ses transactions sont conservées.",
+    "created": "Compte ajouté",
+    "saved": "Compte enregistré",
+    "notFound": "Ce compte n’existe plus."
+  }
+}

@@ -78,8 +78,8 @@ export function MonthGrid({
         ) : null}
       </View>
       <View style={styles.row}>
-        {names.map((n) => (
-          <Text key={n} variant="caption" color="textMuted" align="center" style={styles.cell}>
+        {names.map((n, i) => (
+          <Text key={i} variant="caption" color="textMuted" align="center" style={styles.cell}>
             {n}
           </Text>
         ))}

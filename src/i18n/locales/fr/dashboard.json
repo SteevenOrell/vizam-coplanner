@@ -1,1 +1,45 @@
-{}
+{
+  "greeting": "Bonjour, {{name}}",
+  "greetingAnon": "Bonjour",
+  "openSettings": "Ouvrir les paramètres",
+  "notifications": "Notifications",
+  "totalBalance": "Solde total",
+  "alsoIn": "Aussi en {{currency}}",
+  "income": "Revenus",
+  "expenses": "Dépenses",
+  "thisMonth": "Ce mois-ci",
+  "actions": {
+    "addExpense": "Ajouter une dépense",
+    "addIncome": "Ajouter un revenu",
+    "bills": "Factures",
+    "calendar": "Calendrier",
+    "reports": "Rapports"
+  },
+  "budget": {
+    "title": "Budget du mois",
+    "spentOf": "{{spent}} sur {{limit}}",
+    "left": "Il reste {{amount}}",
+    "over": "Budget dépassé de {{amount}}",
+    "near": "Proche de votre limite",
+    "emptyTitle": "Aucun budget pour ce mois",
+    "emptyBody": "Fixez une limite par catégorie pour voir ce qu’il vous reste.",
+    "emptyAction": "Ouvrir les budgets"
+  },
+  "bills": {
+    "title": "Factures à venir",
+    "none": "Aucune facture à payer dans les 14 prochains jours.",
+    "overdue": "En retard"
+  },
+  "goals": {
+    "title": "Objectifs d’épargne",
+    "none": "Aucun objectif d’épargne pour l’instant.",
+    "noneAction": "Créer un objectif",
+    "percent": "{{percent}} %",
+    "savedOf": "{{saved}} sur {{target}}"
+  },
+  "recent": {
+    "title": "Transactions récentes",
+    "empty": "Aucune transaction pour l’instant.",
+    "emptyAction": "Ajouter une transaction"
+  }
+}

@@ -1,1 +1,24 @@
-{}
+{
+  "title": "Notifications",
+  "markAllRead": "Mark all read",
+  "today": "Today",
+  "earlier": "Earlier",
+  "unread": "Unread",
+  "delete": "Delete this notification",
+  "emptyTitle": "You're all caught up",
+  "emptyBody": "Bill reminders, budget warnings and reached goals show up here.",
+  "webNote": "Phone reminders only work in the CoPlanner app. In the browser you see the same alerts in this list.",
+  "permissionBody": "Reminders are off. Turn them on to get a notification on the day a bill is coming up.",
+  "turnOn": "Turn on reminders",
+  "channelName": "Bill reminders",
+  "text": {
+    "billDueTitle": "{{name}} is coming up",
+    "billDueBody": "{{amount}} due on {{date}}.",
+    "budgetNearTitle": "{{category}} is close to its limit",
+    "budgetNearBody": "You have used {{percent}} percent of this month's budget.",
+    "budgetOverTitle": "{{category}} is over budget",
+    "budgetOverBody": "You are over the limit by {{amount}} this month.",
+    "goalReachedTitle": "Goal reached: {{name}}",
+    "goalReachedBody": "You hit your savings target. Well done."
+  }
+}

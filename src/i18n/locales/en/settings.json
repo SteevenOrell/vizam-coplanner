@@ -1,1 +1,109 @@
-{}
+{
+  "title": "Settings",
+  "profile": {
+    "title": "Profile",
+    "name": "Display name",
+    "nameHelp": "Shown in your greeting."
+  },
+  "mode": {
+    "demoTitle": "Demo mode",
+    "demoBody": "Synthetic data stored on this device. Nothing leaves your phone.",
+    "reset": "Reset demo data",
+    "resetTitle": "Reset demo data?",
+    "resetBody": "Your changes will be replaced by fresh demo data.",
+    "leave": "Leave demo",
+    "leaveTitle": "Leave demo mode?",
+    "leaveBody": "Demo data will be erased and you will return to the welcome screen.",
+    "cloudTitle": "Signed in",
+    "status": {
+      "idle": "Up to date",
+      "syncing": "Syncing…",
+      "offline": "Offline, will sync later",
+      "error": "Sync problem, try again"
+    },
+    "lastSynced": "Last synced {{time}}",
+    "neverSynced": "Not synced yet in this session",
+    "syncNow": "Sync now",
+    "rejected_one": "{{count}} change could not be synced",
+    "rejected_other": "{{count}} changes could not be synced",
+    "signOut": "Sign out",
+    "signOutTitle": "Sign out?",
+    "signOutBody": "Pending changes are sent first, then your data is removed from this device."
+  },
+  "currencies": {
+    "title": "Currencies",
+    "primary": "Main currency",
+    "primaryHelp": "Used for totals on the dashboard."
+  },
+  "accounts": {
+    "title": "Accounts",
+    "add": "Add account",
+    "archived": "Archived",
+    "empty": "No accounts yet."
+  },
+  "appearance": {
+    "title": "Appearance",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "title": "Language",
+    "en": "English",
+    "fr": "Français"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "bills": "Bill reminders",
+    "budgets": "Budget alerts",
+    "reminderDays": "Remind me before a bill is due",
+    "onDueDay": "On the due day",
+    "days_one": "{{count}} day before",
+    "days_other": "{{count}} days before",
+    "fewer": "One day less",
+    "more": "One day more"
+  },
+  "privacy": {
+    "title": "Privacy",
+    "hide": "Hide amounts",
+    "hideHelp": "Masks balances on the dashboard."
+  },
+  "data": {
+    "title": "Data",
+    "export": "Export transactions (CSV)",
+    "exportHelp": "Every transaction, with its own currency. Amounts are never converted.",
+    "exportEmpty": "There are no transactions to export.",
+    "exportDone": "Export ready",
+    "exportFailed": "Couldn't export. Try again.",
+    "shareTitle": "CoPlanner transactions"
+  },
+  "about": {
+    "title": "About",
+    "version": "Version {{version}}"
+  },
+  "delete": {
+    "title": "Delete account",
+    "body": "Permanently deletes your account and the data synced to the cloud.",
+    "confirmTitle": "Delete your account?",
+    "confirmBody": "This permanently deletes your account and all synced data. It can't be undone.",
+    "confirm": "Delete account",
+    "failed": "Couldn't delete the account. Try again."
+  },
+  "accountForm": {
+    "newTitle": "New account",
+    "editTitle": "Edit account",
+    "name": "Account name",
+    "namePlaceholder": "e.g. Everyday account",
+    "kind": "Type",
+    "currency": "Currency",
+    "currencyLocked": "The currency can't be changed after the account is created.",
+    "opening": "Opening balance",
+    "owed": "Money owed",
+    "owedHelp": "Turn on if this is a balance you owe, like a credit card or a loan.",
+    "archive": "Archive this account",
+    "archiveHelp": "Hides it from balances and pickers. Its transactions are kept.",
+    "created": "Account added",
+    "saved": "Account saved",
+    "notFound": "This account no longer exists."
+  }
+}

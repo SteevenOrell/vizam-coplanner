@@ -1,1 +1,45 @@
-{}
+{
+  "greeting": "Hello, {{name}}",
+  "greetingAnon": "Hello",
+  "openSettings": "Open settings",
+  "notifications": "Notifications",
+  "totalBalance": "Total balance",
+  "alsoIn": "Also in {{currency}}",
+  "income": "Income",
+  "expenses": "Expenses",
+  "thisMonth": "This month",
+  "actions": {
+    "addExpense": "Add expense",
+    "addIncome": "Add income",
+    "bills": "Bills",
+    "calendar": "Calendar",
+    "reports": "Reports"
+  },
+  "budget": {
+    "title": "This month's budget",
+    "spentOf": "{{spent}} of {{limit}}",
+    "left": "{{amount}} left",
+    "over": "Over budget by {{amount}}",
+    "near": "Close to your limit",
+    "emptyTitle": "No budget for this month",
+    "emptyBody": "Set a limit per category to see how much you have left.",
+    "emptyAction": "Open budgets"
+  },
+  "bills": {
+    "title": "Upcoming bills",
+    "none": "No bills due in the next 14 days.",
+    "overdue": "Overdue"
+  },
+  "goals": {
+    "title": "Savings goals",
+    "none": "No savings goals yet.",
+    "noneAction": "Create a goal",
+    "percent": "{{percent}}%",
+    "savedOf": "{{saved}} of {{target}}"
+  },
+  "recent": {
+    "title": "Recent transactions",
+    "empty": "No transactions yet.",
+    "emptyAction": "Add a transaction"
+  }
+}

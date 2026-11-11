@@ -38,18 +38,18 @@ Risks / needs from Steeven (batched at the end): hosted Supabase project + keys 
 
 ### Phase 1 — foundation (main session, Opus) ~450-600k
 
-- [ ] 1.1 Scaffold: package.json (SDK 58 versions from ticktack), app.config.ts, tsconfig, metro (wasm), jest,
+- [x] 1.1 Scaffold: package.json (SDK 58 versions from ticktack), app.config.ts, tsconfig, metro (wasm), jest,
       eslint, prettier, .gitignore, .env.example. Verify `expo start --web` boots. (~60k)
-- [ ] 1.2 Money domain `src/domain/money`: currencies (CAD exp 2, XOF exp 0), parse/format without floats, per-currency
+- [x] 1.2 Money domain `src/domain/money`: currencies (CAD exp 2, XOF exp 0), parse/format without floats, per-currency
       sums, budget math, savings math, recurrence (monthly/weekly/yearly due dates), forecast, CSV. Jest tests. (~90k)
-- [ ] 1.3 Supabase: `supabase/migrations/*.sql` (profiles, user_preferences, accounts, categories, transactions,
+- [x] 1.3 Supabase: `supabase/migrations/*.sql` (profiles, user_preferences, accounts, categories, transactions,
       budgets, budget_allocations, savings_goals, savings_contributions, recurring_bills, notifications), checks,
       indexes, RLS on every table, safe RPCs (record contribution, upsert budget with allocations). PGlite test harness + RLS tests (owner can, other user cannot, anon cannot, cross-user FK cannot). (~130k)
-- [ ] 1.4 Local data: SQLite schema mirroring Postgres, repositories, outbox, sync service (no-op without keys),
+- [x] 1.4 Local data: SQLite schema mirroring Postgres, repositories, outbox, sync service (no-op without keys),
       synthetic demo seed (CAD + XOF), data tests. (~120k)
-- [ ] 1.5 Theme (light/dark tokens from the brief palette), UI kit, i18n en/fr, tab + stack skeleton with every route,
+- [x] 1.5 Theme (light/dark tokens from the brief palette), UI kit, i18n en/fr, tab + stack skeleton with every route,
       session/onboarding gate. (~90k)
-- [ ] 1.6 Commit, handoff note. Verify tsc + jest. (~15k)
+- [x] 1.6 Commit, handoff note. Verify tsc + jest. (~15k)
 
 ### Phase 2 — screens (two Sonnet agents in parallel, disjoint files) ~600-850k
 

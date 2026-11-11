@@ -1,1 +1,24 @@
-{}
+{
+  "title": "Notifications",
+  "markAllRead": "Tout marquer comme lu",
+  "today": "Aujourd'hui",
+  "earlier": "Plus tôt",
+  "unread": "Non lue",
+  "delete": "Supprimer cette notification",
+  "emptyTitle": "Tout est à jour",
+  "emptyBody": "Les rappels de factures, les alertes de budget et les objectifs atteints s'affichent ici.",
+  "webNote": "Les rappels sur téléphone fonctionnent seulement dans l'application CoPlanner. Dans le navigateur, vous voyez les mêmes alertes dans cette liste.",
+  "permissionBody": "Les rappels sont désactivés. Activez-les pour recevoir une notification le jour où une facture approche.",
+  "turnOn": "Activer les rappels",
+  "channelName": "Rappels de factures",
+  "text": {
+    "billDueTitle": "{{name}} approche",
+    "billDueBody": "{{amount}} à payer le {{date}}.",
+    "budgetNearTitle": "{{category}} approche de sa limite",
+    "budgetNearBody": "Vous avez utilisé {{percent}} pour cent du budget du mois.",
+    "budgetOverTitle": "{{category}} dépasse le budget",
+    "budgetOverBody": "Vous dépassez la limite de {{amount}} ce mois-ci.",
+    "goalReachedTitle": "Objectif atteint : {{name}}",
+    "goalReachedBody": "Vous avez atteint votre cible d'épargne. Bravo!"
+  }
+}

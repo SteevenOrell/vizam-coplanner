@@ -1,1 +1,15 @@
-{}
+{
+  "title": "Calendar",
+  "legendBill": "Bill due",
+  "legendIncome": "Income",
+  "legendExpense": "Spending",
+  "monthSummary": "This month in {{currency}}",
+  "income": "Income",
+  "expenses": "Expenses",
+  "billsDue": "Bills due",
+  "nothingThisDay": "Nothing on this day.",
+  "billDue": "Bill due",
+  "forecast": "Forecast",
+  "forecastEmpty": "No bills left to pay this month.",
+  "forecastTotal": "Still to pay"
+}

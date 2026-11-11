@@ -1,1 +1,29 @@
-{}
+{
+  "stepOf": "{{current}}/{{total}}",
+  "stepA11y": "Étape {{current}} sur {{total}}",
+  "language": "Langue",
+  "steps": {
+    "one": {
+      "title": "Planifiez votre argent, mois après mois",
+      "body": "Voyez où va votre argent et ce qu’il vous reste, en CAD et en FCFA, côte à côte."
+    },
+    "two": {
+      "title": "Des budgets pour rester sur la bonne voie",
+      "body": "Fixez une limite par catégorie et regardez la barre se remplir. Un avertissement apparaît avant le dépassement."
+    },
+    "three": {
+      "title": "Objectifs et factures, au même endroit",
+      "body": "Épargnez pour ce qui compte et n’oubliez plus jamais une facture récurrente."
+    }
+  },
+  "demoCta": "Essayer avec des données de démo",
+  "authCta": "Se connecter ou créer un compte",
+  "noCloud": "La synchronisation infonuagique n’est pas configurée dans cette version : les comptes sont indisponibles ici. La démo fonctionne entièrement hors ligne.",
+  "starting": "Préparation de votre démo…",
+  "illustration": {
+    "a11y": "Illustration d’une carte de plan, d’une barre de budget et d’un anneau d’objectif d’épargne",
+    "plan": "Plan du mois",
+    "budget": "Budget",
+    "goal": "Fonds voyage"
+  }
+}

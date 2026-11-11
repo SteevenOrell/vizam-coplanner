@@ -1,1 +1,15 @@
-{}
+{
+  "title": "Calendrier",
+  "legendBill": "Facture à payer",
+  "legendIncome": "Revenu",
+  "legendExpense": "Dépense",
+  "monthSummary": "Ce mois-ci en {{currency}}",
+  "income": "Revenus",
+  "expenses": "Dépenses",
+  "billsDue": "Factures à payer",
+  "nothingThisDay": "Rien ce jour-là.",
+  "billDue": "Facture à payer",
+  "forecast": "Prévisions",
+  "forecastEmpty": "Aucune facture à payer pour ce mois.",
+  "forecastTotal": "Reste à payer"
+}

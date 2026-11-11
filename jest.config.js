@@ -11,6 +11,9 @@ module.exports = {
   projects: [
     {
       displayName: 'app',
+      // Agent worktrees live under .claude/; never collect or resolve their copies.
+      testPathIgnorePatterns: ['/node_modules/', String.raw`[\/].claude[\/]`],
+      modulePathIgnorePatterns: [String.raw`[\/].claude[\/]`],
       preset: 'jest-expo',
       setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
       testRegex: String.raw`src[\/].*__tests__[\/].*\.test\.tsx?$`,
@@ -20,6 +23,9 @@ module.exports = {
     },
     {
       displayName: 'db',
+      // Agent worktrees live under .claude/; never collect or resolve their copies.
+      testPathIgnorePatterns: ['/node_modules/', String.raw`[\/].claude[\/]`],
+      modulePathIgnorePatterns: [String.raw`[\/].claude[\/]`],
       testEnvironment: 'node',
       testRegex: String.raw`tests[\/]db[\/].*\.test\.ts$`,
       transform: { '^.+\.ts$': ['babel-jest', { presets: [babelPresetExpo] }] },

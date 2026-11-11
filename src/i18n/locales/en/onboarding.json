@@ -1,1 +1,29 @@
-{}
+{
+  "stepOf": "{{current}}/{{total}}",
+  "stepA11y": "Step {{current}} of {{total}}",
+  "language": "Language",
+  "steps": {
+    "one": {
+      "title": "Plan your money, month by month",
+      "body": "See where your money goes and what is left, in CAD and FCFA, side by side."
+    },
+    "two": {
+      "title": "Budgets that keep you on track",
+      "body": "Set a limit for each category and watch the bar fill. A warning shows before you go over."
+    },
+    "three": {
+      "title": "Goals and bills, together",
+      "body": "Save toward what matters and never miss a recurring bill."
+    }
+  },
+  "demoCta": "Try with demo data",
+  "authCta": "Sign in or create an account",
+  "noCloud": "Cloud sync is not set up in this build, so accounts are unavailable here. The demo works fully offline.",
+  "starting": "Preparing your demo…",
+  "illustration": {
+    "a11y": "Illustration of a plan card, a budget bar and a savings goal ring",
+    "plan": "Monthly plan",
+    "budget": "Budget",
+    "goal": "Trip fund"
+  }
+}
