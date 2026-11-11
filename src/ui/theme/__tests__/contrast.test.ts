@@ -14,6 +14,15 @@ describe.each([
     },
   );
 
+  it('text stays AA over the sky gradient', () => {
+    for (const k of ['text', 'textSecondary', 'accentText'] as const) {
+      expect(contrast(p[k], p.skyMid)).toBeGreaterThanOrEqual(4.5);
+    }
+    // Only headings and back buttons sit on the very top of the sky.
+    expect(contrast(p.text, p.skyTop)).toBeGreaterThanOrEqual(7);
+    expect(contrast(p.textSecondary, p.skyTop)).toBeGreaterThanOrEqual(4.4);
+  });
+
   it('hero text is AA on both gradient ends', () => {
     for (const bg of [p.heroFrom, p.heroTo]) {
       expect(contrast(p.heroText, bg)).toBeGreaterThanOrEqual(4.5);

@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
+import { Platform, Pressable, StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 
 import type { CurrencyCode } from '../domain/money/currency';
 import { formatMoney, parseAmount, type ParseResult } from '../domain/money/format';
@@ -9,6 +9,9 @@ import { Icon, type IconName } from './Icon';
 import { Text } from './Text';
 import { fonts, radii, space } from './theme/tokens';
 import { useTheme } from './theme/ThemeProvider';
+
+/** The box border shows focus; the browser's own outline on the inner input is removed on web. */
+const noOutline = Platform.OS === 'web' ? ({ outlineStyle: 'none' } as object) : null;
 
 /** Label + control + error/help line. Use for every form row. */
 export function FieldShell({
@@ -74,7 +77,13 @@ export function TextField({
             setFocused(false);
             input.onBlur?.(e);
           }}
-          style={[styles.input, { color: colors.text }, input.multiline ? styles.multiline : null, input.style]}
+          style={[
+            styles.input,
+            noOutline,
+            { color: colors.text },
+            input.multiline ? styles.multiline : null,
+            input.style,
+          ]}
         />
       </View>
     </FieldShell>
@@ -119,6 +128,7 @@ export function AmountField({
   const { colors } = useTheme();
   const { locale } = usePreferences();
   const { t } = useTranslation();
+  const [focused, setFocused] = useState(false);
   const parsed = parseAmount(value, currency);
   const preview = parsed.ok && value.trim() ? `= ${formatMoney(parsed.amountMinor, currency, { locale })}` : null;
   return (
@@ -126,7 +136,10 @@ export function AmountField({
       <View
         style={[
           styles.amountBox,
-          { backgroundColor: colors.surfaceRaised, borderColor: error ? colors.danger : colors.border },
+          {
+            backgroundColor: colors.surfaceRaised,
+            borderColor: error ? colors.danger : focused ? colors.focus : colors.border,
+          },
         ]}
       >
         <TextInput
@@ -139,7 +152,9 @@ export function AmountField({
           placeholder={currency === 'XOF' ? '0' : '0.00'}
           placeholderTextColor={colors.textMuted}
           autoFocus={autoFocus}
-          style={[styles.amountInput, { color: colors.text }]}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          style={[styles.amountInput, noOutline, { color: colors.text }]}
         />
         <Pressable
           onPress={onCurrencyPress}

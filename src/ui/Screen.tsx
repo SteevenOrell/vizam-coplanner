@@ -14,6 +14,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { IconButton } from './Button';
+import { SkyBackground } from './SkyBackground';
 import { Text } from './Text';
 import { CONTENT_MAX_WIDTH, space } from './theme/tokens';
 import { useTheme } from './theme/ThemeProvider';
@@ -85,6 +86,7 @@ export function Screen({
       style={[styles.flex, { backgroundColor: colors.bg }]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
+      <SkyBackground />
       {head}
       {scroll ? (
         <ScrollView

@@ -9,6 +9,9 @@ export type ColorScheme = 'light' | 'dark';
 
 export interface Palette {
   bg: string;
+  /** Sky gradient behind every screen, top to bottom (ends on bg). Text on the top of it stays AA. */
+  skyTop: string;
+  skyMid: string;
   surface: string;
   surfaceAlt: string;
   /** Raised surface on top of surface (inputs, chips). */
@@ -46,6 +49,8 @@ export interface Palette {
 
 export const lightPalette: Palette = {
   bg: '#F6F8FC',
+  skyTop: '#C6DBFF',
+  skyMid: '#E3EDFF',
   surface: '#FFFFFF',
   surfaceAlt: '#EEF2FA',
   surfaceRaised: '#F3F6FC',
@@ -77,6 +82,8 @@ export const lightPalette: Palette = {
 
 export const darkPalette: Palette = {
   bg: '#0A1024',
+  skyTop: '#183477',
+  skyMid: '#0F1F4D',
   surface: '#121A33',
   surfaceAlt: '#18223F',
   surfaceRaised: '#1D2847',

@@ -7,7 +7,9 @@ const config = getDefaultConfig(__dirname);
 // SharedArrayBuffer, so no COOP/COEP headers are required (verified in phase 2, see docs/AGENT_HANDOFF.md).
 config.resolver.assetExts.push('wasm');
 
-// Node-only modules must never be bundled into the app.
-config.resolver.blockList = [/src[\\/]data[\\/]db[\\/]betterSqliteDriver\.ts$/];
+// Node-only modules must never be bundled into the app, and agent worktrees under .claude/ (duplicate sources,
+// node_modules junctions) must never be crawled.
+config.resolver.blockList = [/src[\\/]data[\\/]db[\\/]betterSqliteDriver\.ts$/, /[\\/]\.claude[\\/].*/];
+config.watchFolders = [__dirname];
 
 module.exports = config;
