@@ -1,3 +1,4 @@
+import { GLASS } from '../../SkyBackground';
 import { contrast } from '../contrast';
 import { darkPalette, lightPalette, type Palette } from '../tokens';
 
@@ -37,5 +38,30 @@ describe.each([
   it('positive and danger read as text on surface (3:1 for bold amounts)', () => {
     expect(contrast(p.positive, p.surface)).toBeGreaterThanOrEqual(3);
     expect(contrast(p.danger, p.surface)).toBeGreaterThanOrEqual(3);
+  });
+});
+
+/** Colour of a glow at its densest point over the screen background. */
+function over(fg: string, bg: string, alpha: number): string {
+  const ch = (h: string, i: number) => parseInt(h.slice(i, i + 2), 16);
+  return `#${[1, 3, 5]
+    .map((i) =>
+      Math.round(ch(fg, i) * alpha + ch(bg, i) * (1 - alpha))
+        .toString(16)
+        .padStart(2, '0'),
+    )
+    .join('')}`;
+}
+
+describe.each([
+  ['light', lightPalette, GLASS.light],
+  ['dark', darkPalette, GLASS.dark],
+] as const)('%s glass header', (_, p, g) => {
+  it('keeps text, secondary text and links AA at the glow peaks', () => {
+    for (const bg of [over(g.blue, p.bg, g.blueAlpha), over(g.cyan, p.bg, g.cyanAlpha)]) {
+      for (const k of ['text', 'textSecondary', 'accentText'] as const) {
+        expect(contrast(p[k], bg)).toBeGreaterThanOrEqual(4.5);
+      }
+    }
   });
 });
