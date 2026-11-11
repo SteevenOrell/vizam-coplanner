@@ -374,3 +374,36 @@ describe('delete_my_account', () => {
     expect(others.rows[0]!.n).toBe(12);
   });
 });
+
+describe('sync order for a deleted goal', () => {
+  it('accepts the goal tombstone, then tombstones of its contributions in any order', async () => {
+    await as(db, 'authenticated', BOB, async (q) => {
+      const [g] = await q<{ id: string }>(
+        `insert into public.savings_goals (name, target_minor, currency) values ('Bike', 50000, 'CAD') returning id`,
+      );
+      const [dep] = await q<{ id: string }>(
+        `insert into public.savings_contributions (goal_id, amount_minor, contributed_on) values ($1, 5000, '2026-11-01') returning id`,
+        [g!.id],
+      );
+      await q(
+        `insert into public.savings_contributions (goal_id, amount_minor, contributed_on) values ($1, -3000, '2026-11-02')`,
+        [g!.id],
+      );
+      await q(`update public.savings_goals set deleted_at = now() where id = $1`, [g!.id]);
+      await q(`update public.savings_contributions set deleted_at = now() where id = $1`, [dep!.id]);
+      const left = await q(`select id from public.savings_contributions where goal_id = $1 and deleted_at is null`, [
+        g!.id,
+      ]);
+      expect(left).toHaveLength(1);
+      // Adding to a tombstoned goal is refused.
+      await q(`savepoint s`);
+      await expect(
+        q(
+          `insert into public.savings_contributions (goal_id, amount_minor, contributed_on) values ($1, 100, '2026-11-03')`,
+          [g!.id],
+        ),
+      ).rejects.toThrow(/goal not found/);
+      await q(`rollback to savepoint s`);
+    });
+  });
+});

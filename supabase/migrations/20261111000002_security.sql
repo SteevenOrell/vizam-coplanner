@@ -154,10 +154,12 @@ declare
   owner uuid := case when tg_op = 'DELETE' then old.user_id else new.user_id end;
   row_id uuid := case when tg_op = 'DELETE' then old.id else new.id end;
 begin
-  perform 1 from public.savings_goals g where g.id = goal and g.user_id = owner for update;
+  perform 1 from public.savings_goals g
+    where g.id = goal and g.user_id = owner and g.deleted_at is null for update;
   if not found then
-    if tg_op = 'DELETE' then
-      return old; -- the goal itself is being deleted (cascade)
+    -- The goal is gone or tombstoned: removing its contributions is always fine, adding to it is not.
+    if tg_op = 'DELETE' or new.deleted_at is not null then
+      return case when tg_op = 'DELETE' then old else new end;
     end if;
     raise exception 'goal not found' using errcode = '23503';
   end if;
