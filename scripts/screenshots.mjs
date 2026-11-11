@@ -24,6 +24,7 @@ const screens = [
   ['notifications', '/notifications'],
   ['settings', '/settings'],
   ['auth', '/auth'],
+  ['import', '/import'],
 ];
 
 const sweepWidths = [240, 300, 390, 768, 1440];
@@ -34,7 +35,11 @@ async function open(page, path, theme) {
   const sep = path.includes('?') ? '&' : '?';
   await page.goto(`${base}${path}${sep}demo=1&theme=${theme}&today=${TODAY}`, { waitUntil: 'networkidle' });
   // Past the boot spinner: wait for real text, then let charts measure and settle.
-  await page.waitForFunction(() => document.body.innerText.trim().length > 40, null, { timeout: 60000 });
+  await page.waitForFunction(
+    () => !document.querySelector('[data-testid="app-splash"]') && document.body.innerText.trim().length > 40,
+    null,
+    { timeout: 60000 },
+  );
   await page.waitForTimeout(900);
 }
 
@@ -66,7 +71,11 @@ for (const theme of ['light', 'dark']) {
   });
   const page = await ctx.newPage();
   await page.goto(`${base}/onboarding?theme=${theme}`, { waitUntil: 'networkidle' });
-  await page.waitForFunction(() => document.body.innerText.trim().length > 40, null, { timeout: 60000 });
+  await page.waitForFunction(
+    () => !document.querySelector('[data-testid="app-splash"]') && document.body.innerText.trim().length > 40,
+    null,
+    { timeout: 60000 },
+  );
   await page.waitForTimeout(900);
   await page.screenshot({ path: `${out}/onboarding-${theme}.png` });
   await ctx.close();

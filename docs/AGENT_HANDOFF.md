@@ -37,8 +37,7 @@ Architecture, money rules and design identity: `docs/ARCHITECTURE.md`.
 
 ## Pending (priority order)
 
-1. Quality gate leftovers: `npm audit` review (`vizam-dependency-audit-fix`), secret scan,
-   `vizam-mobile-export-check` (web export + Android bundle), full screenshot refresh (`node scripts/screenshots.mjs`).
+1. Secret scan of git history before the first push (no keys were ever written; `.env` is git-ignored).
 2. Device test in Expo Go (SQLite, notifications, document picker, CSV share) — not possible from this machine.
 3. Steeven's items below, then an end-to-end cloud sync test against a real Supabase project.
 4. Importer: test against a real (anonymised) bank export; OFX/QFX import; quick-add favourites.
@@ -46,16 +45,18 @@ Architecture, money rules and design identity: `docs/ARCHITECTURE.md`.
 
 ## Last verified checks (2026-11-11, branch feat/screens)
 
-| Check                   | Command                                      | Result                                                                                     |
-| ----------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Typecheck               | `npx tsc --noEmit`                           | pass                                                                                       |
-| Lint                    | `npm run lint`                               | pass (0 errors, 0 warnings)                                                                |
-| All tests               | `npm test` (app + db projects)               | 21 suites, 268 tests passed                                                                |
-| DB / RLS                | included above (`npm run test:db` alone: 43) | pass                                                                                       |
-| Import flow on web      | `node scripts/screenshots-import.mjs`        | pass: paste → columns → review → import, light/dark/300 px, no overflow, no console errors |
-| Layout sweep            | `node scripts/screenshots.mjs`               | earlier run (before currencies/import): 0 overflow 300–1440 px, 240 px lock OK             |
-| Screenshots             | `docs/screenshots/`                          | key screens, splash, sky and import steps reviewed (light + dark)                          |
-| npm audit, export check | —                                            | not run                                                                                    |
+| Check              | Command                                               | Result                                                                                                                                                                                                  |
+| ------------------ | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Typecheck          | `npx tsc --noEmit`                                    | pass                                                                                                                                                                                                    |
+| Lint               | `npm run lint`                                        | pass (0 errors, 0 warnings)                                                                                                                                                                             |
+| All tests          | `npm test` (app + db projects)                        | 21 suites, 268 tests passed                                                                                                                                                                             |
+| DB / RLS           | included above (`npm run test:db` alone: 43)          | pass                                                                                                                                                                                                    |
+| Import flow on web | `node scripts/screenshots-import.mjs`                 | pass: paste → columns → review → import, light/dark/300 px, no overflow, no console errors                                                                                                              |
+| Layout sweep       | `node scripts/screenshots.mjs`                        | earlier run (before currencies/import): 0 overflow 300–1440 px, 240 px lock OK                                                                                                                          |
+| Screenshots        | `docs/screenshots/`                                   | key screens, splash, sky and import steps reviewed (light + dark)                                                                                                                                       |
+| Web export         | `npx expo export --platform web`                      | pass                                                                                                                                                                                                    |
+| Android export     | `npx expo export --platform android` (TMP in `.tmp/`) | pass, Hermes bytecode bundle                                                                                                                                                                            |
+| npm audit          | `npm audit --omit=dev`                                | 3 advisories kept (1 low, 2 moderate: deepmerge, glob, minimatch) — all via Jest test tooling, not in the app bundle; only fix is `--force` (downgrades Expo). Recheck after the next Expo/Jest update. |
 
 ## Known issues and risks
 
@@ -74,8 +75,8 @@ Architecture, money rules and design identity: `docs/ARCHITECTURE.md`.
 
 ## Next step
 
-Run `vizam-mobile-export-check` (web export + Android bundle) and `npm audit`, fix what they find, refresh all
-screenshots with `node scripts/screenshots.mjs`, then hand the batched list below to Steeven.
+Steeven's batched items below. Then: device test in Expo Go, end-to-end cloud sync test on the real Supabase
+project, and the importer against a real anonymised bank export.
 
 ## Waiting for approval / Steeven only
 
