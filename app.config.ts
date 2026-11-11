@@ -11,7 +11,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   version: '0.1.0',
   orientation: 'portrait',
   userInterfaceStyle: 'automatic',
-  backgroundColor: '#0A1024',
+  backgroundColor: '#0C1A46',
   icon: './assets/icon.png',
   ios: {
     supportsTablet: true,
@@ -40,7 +40,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         image: './assets/splash-icon.png',
         imageWidth: 200,
         resizeMode: 'contain',
-        dark: { backgroundColor: '#0D1E4F', image: './assets/splash-icon.png' },
+        dark: { backgroundColor: '#1A3A9E', image: './assets/splash-icon.png' },
       },
     ],
     'expo-sqlite',

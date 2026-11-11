@@ -56,7 +56,7 @@ export function AppSplash({ visible, onHidden }: { visible: boolean; onHidden: (
   }, [visible, opacity, onHidden]);
 
   const sky: [string, string, string] =
-    scheme === 'dark' ? ['#060B1C', '#14307A', '#3C6FD8'] : ['#123A9E', '#2D66E0', '#9CC4FF'];
+    scheme === 'dark' ? ['#0C1A46', '#1E46B8', '#4F86F0'] : ['#123A9E', '#2D66E0', '#9CC4FF'];
 
   return (
     <Animated.View
