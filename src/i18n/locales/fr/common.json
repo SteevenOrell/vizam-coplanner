@@ -34,11 +34,23 @@
     "errorBody": "Vos données sont en sécurité sur cet appareil. Réessayez.",
     "emptyTitle": "Rien pour l'instant"
   },
-  "kinds": { "income": "Revenu", "expense": "Dépense" },
+  "kinds": {
+    "income": "Revenu",
+    "expense": "Dépense"
+  },
   "currency": {
     "CAD": "Dollar canadien (CAD)",
     "XOF": "Franc CFA (XOF, FCFA)",
-    "noConversion": "Les montants dans des devises différentes sont affichés séparément. CoPlanner ne les convertit jamais."
+    "USD": "Dollar américain (USD)",
+    "EUR": "Euro (EUR)",
+    "GBP": "Livre sterling (GBP)",
+    "CHF": "Franc suisse (CHF)",
+    "XAF": "Franc CFA d’Afrique centrale (XAF)",
+    "NGN": "Naira nigérian (NGN)",
+    "GHS": "Cedi ghanéen (GHS)",
+    "MAD": "Dirham marocain (MAD)",
+    "noConversion": "Les montants dans des devises différentes sont affichés séparément. CoPlanner ne les convertit jamais.",
+    "pick": "Choisir une devise"
   },
   "accountKinds": {
     "cash": "Espèces",
@@ -64,7 +76,10 @@
     "daysAgo_one": "Il y a {{count}} jour",
     "daysAgo_other": "Il y a {{count}} jours"
   },
-  "a11y": { "hidden": "Montant masqué", "progress": "{{percent}} pour cent" },
+  "a11y": {
+    "hidden": "Montant masqué",
+    "progress": "{{percent}} pour cent"
+  },
   "uncategorized": "Sans catégorie",
   "search": "Rechercher"
 }

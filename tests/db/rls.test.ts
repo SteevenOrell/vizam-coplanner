@@ -114,7 +114,7 @@ describe('row level security', () => {
     const rows = await as(db, 'anon', null, (q) =>
       q<{ code: string }>(`select code from public.currencies order by code`),
     );
-    expect(rows.map((r) => r.code)).toEqual(['CAD', 'XOF']);
+    expect(rows.map((r) => r.code)).toEqual(['CAD', 'CHF', 'EUR', 'GBP', 'GHS', 'MAD', 'NGN', 'USD', 'XAF', 'XOF']);
   });
 
   it('profiles: only your own', async () => {
@@ -227,7 +227,7 @@ describe('money integrity', () => {
     expect(
       await pgError(
         as(db, 'authenticated', ALICE, (q) =>
-          q(`insert into public.accounts (name, kind, currency) values ('Euro', 'cash', 'EUR')`),
+          q(`insert into public.accounts (name, kind, currency) values ('Yen', 'cash', 'JPY')`),
         ),
       ),
     ).toMatch(/foreign key/);

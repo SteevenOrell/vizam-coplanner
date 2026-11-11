@@ -159,7 +159,8 @@ describe('aggregation', () => {
 
   it('currency guard', () => {
     expect(isCurrencyCode('CAD')).toBe(true);
-    expect(isCurrencyCode('EUR')).toBe(false);
+    expect(isCurrencyCode('EUR')).toBe(true);
+    expect(isCurrencyCode('JPY')).toBe(false);
     expect(isCurrencyCode('toString')).toBe(false);
   });
 });

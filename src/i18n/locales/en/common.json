@@ -3,7 +3,13 @@
   "tagline": "Plan your money, month by month",
   "demoBadge": "Demo data",
   "conceptNote": "Concept app with synthetic data. Not a bank: it never connects to bank accounts or moves money.",
-  "tabs": { "home": "Home", "activity": "Activity", "add": "Add transaction", "budgets": "Budgets", "goals": "Goals" },
+  "tabs": {
+    "home": "Home",
+    "activity": "Activity",
+    "add": "Add transaction",
+    "budgets": "Budgets",
+    "goals": "Goals"
+  },
   "actions": {
     "save": "Save",
     "cancel": "Cancel",
@@ -28,11 +34,23 @@
     "errorBody": "Your data is safe on this device. Try again.",
     "emptyTitle": "Nothing here yet"
   },
-  "kinds": { "income": "Income", "expense": "Expense" },
+  "kinds": {
+    "income": "Income",
+    "expense": "Expense"
+  },
   "currency": {
     "CAD": "Canadian dollar (CAD)",
     "XOF": "CFA franc (XOF, FCFA)",
-    "noConversion": "Amounts in different currencies are shown separately. CoPlanner never converts them."
+    "USD": "US dollar (USD)",
+    "EUR": "Euro (EUR)",
+    "GBP": "British pound (GBP)",
+    "CHF": "Swiss franc (CHF)",
+    "XAF": "Central African CFA franc (XAF)",
+    "NGN": "Nigerian naira (NGN)",
+    "GHS": "Ghanaian cedi (GHS)",
+    "MAD": "Moroccan dirham (MAD)",
+    "noConversion": "Amounts in different currencies are shown separately. CoPlanner never converts them.",
+    "pick": "Choose a currency"
   },
   "accountKinds": {
     "cash": "Cash",
@@ -58,7 +76,10 @@
     "daysAgo_one": "{{count}} day ago",
     "daysAgo_other": "{{count}} days ago"
   },
-  "a11y": { "hidden": "Amount hidden", "progress": "{{percent}} percent" },
+  "a11y": {
+    "hidden": "Amount hidden",
+    "progress": "{{percent}} percent"
+  },
   "uncategorized": "Uncategorized",
   "search": "Search"
 }

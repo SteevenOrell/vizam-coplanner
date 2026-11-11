@@ -229,6 +229,10 @@ export async function wipeLocalData(db: SqlDriver, { keepMeta = [] as string[] }
   await write(db, async () => {
     for (const t of [
       'outbox',
+      'import_batch_items',
+      'import_batches',
+      'import_profiles',
+      'category_rules',
       'notifications',
       'savings_contributions',
       'savings_goals',

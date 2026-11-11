@@ -1,14 +1,23 @@
 import type { SqlDriver } from './driver';
 import { migration001 } from './migrations/001_initial';
+import { migration002 } from './migrations/002_currencies_import';
 
 export interface Migration {
   version: number;
   name: string;
   sql: string;
+  /**
+   * Table rebuilds (SQLite cannot alter CHECK constraints) must run with foreign keys off, which only takes effect
+   * outside a transaction. The runner turns them off around the migration and verifies with foreign_key_check.
+   */
+  rebuildsTables?: boolean;
 }
 
 /** Ordered list; versions must be 1, 2, 3, ... with no gaps. */
-export const migrations: readonly Migration[] = [{ version: 1, name: '001_initial', sql: migration001 }];
+export const migrations: readonly Migration[] = [
+  { version: 1, name: '001_initial', sql: migration001 },
+  { version: 2, name: '002_currencies_import', sql: migration002, rebuildsTables: true },
+];
 
 export async function getSchemaVersion(db: SqlDriver): Promise<number> {
   const row = await db.first<{ user_version: number }>('PRAGMA user_version');
@@ -32,11 +41,20 @@ export async function migrate(db: SqlDriver, list: readonly Migration[] = migrat
   const applied: number[] = [];
   for (const m of list) {
     if (m.version <= current) continue;
-    await db.transaction(async () => {
-      await db.exec(m.sql);
-      // PRAGMA cannot take bound parameters; the value is an integer from our own constant list.
-      await db.exec(`PRAGMA user_version = ${Math.trunc(m.version)}`);
-    });
+    if (m.rebuildsTables) await db.exec('PRAGMA foreign_keys = OFF');
+    try {
+      await db.transaction(async () => {
+        await db.exec(m.sql);
+        if (m.rebuildsTables) {
+          const broken = await db.all('PRAGMA foreign_key_check');
+          if (broken.length) throw new Error(`Migration ${m.name} broke ${broken.length} foreign keys`);
+        }
+        // PRAGMA cannot take bound parameters; the value is an integer from our own constant list.
+        await db.exec(`PRAGMA user_version = ${Math.trunc(m.version)}`);
+      });
+    } finally {
+      if (m.rebuildsTables) await db.exec('PRAGMA foreign_keys = ON');
+    }
     applied.push(m.version);
   }
   return applied;

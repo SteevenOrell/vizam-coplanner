@@ -14,6 +14,7 @@ import en_calendar from './locales/en/calendar.json';
 import en_reports from './locales/en/reports.json';
 import en_notifications from './locales/en/notifications.json';
 import en_settings from './locales/en/settings.json';
+import en_import from './locales/en/import.json';
 import fr_common from './locales/fr/common.json';
 import fr_errors from './locales/fr/errors.json';
 import fr_onboarding from './locales/fr/onboarding.json';
@@ -27,6 +28,7 @@ import fr_calendar from './locales/fr/calendar.json';
 import fr_reports from './locales/fr/reports.json';
 import fr_notifications from './locales/fr/notifications.json';
 import fr_settings from './locales/fr/settings.json';
+import fr_import from './locales/fr/import.json';
 
 /**
  * One namespace ("translation") split into files per feature so parallel work never edits the same JSON:
@@ -47,6 +49,7 @@ const en = {
   reports: en_reports,
   notifications: en_notifications,
   settings: en_settings,
+  import: en_import,
 };
 const fr = {
   common: fr_common,
@@ -62,6 +65,7 @@ const fr = {
   reports: fr_reports,
   notifications: fr_notifications,
   settings: fr_settings,
+  import: fr_import,
 };
 
 export const resources = { en: { translation: en }, fr: { translation: fr } } as const;
