@@ -29,7 +29,7 @@ import {
   ValidationError,
   write,
 } from '../tables';
-import { getAccount, getCategory, requireAmount, requireDate, requireText } from './core';
+import { getAccount, getCategory, requireAmount, requireCurrency, requireDate, requireText } from './core';
 import { listTransactions } from './transactions';
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -68,6 +68,7 @@ export function saveBudget(
   allocations: readonly { categoryId: string; limitMinor: number }[],
 ): Promise<Budget> {
   return write(db, async () => {
+    requireCurrency(currency);
     const seen = new Set<string>();
     for (const a of allocations) {
       requireAmount(a.limitMinor, { allowZero: true });
@@ -183,13 +184,14 @@ export async function getGoal(
 }
 
 function validateGoal(input: GoalInput): GoalInput {
+  requireCurrency(input.currency);
   requireAmount(input.targetMinor);
   if (input.targetDate) requireDate(input.targetDate);
   if (!/^#[0-9A-Fa-f]{6}$/.test(input.color)) throw new ValidationError('color');
   return { ...input, name: requireText(input.name, 60, 'name', { min: 1 }) };
 }
 
-export function createGoal(db: SqlDriver, input: GoalInput): Promise<SavingsGoal> {
+export async function createGoal(db: SqlDriver, input: GoalInput): Promise<SavingsGoal> {
   const clean = validateGoal(input);
   const now = nowIso();
   const goal: SavingsGoal = { id: newId(), createdAt: now, updatedAt: now, archived: false, ...clean };
@@ -291,6 +293,7 @@ export interface BillInput {
 }
 
 async function validateBill(db: SqlDriver, input: BillInput): Promise<BillInput> {
+  requireCurrency(input.currency);
   requireAmount(input.amountMinor);
   requireDate(input.anchorDate);
   if (input.endOn) {

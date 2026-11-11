@@ -52,6 +52,10 @@ describe('migration 002 (more currencies, import tables)', () => {
     expect((await getPreferences(db)).primaryCurrency).toBe('XAF');
     await expect(db.run("UPDATE accounts SET currency = 'eu' WHERE id = ?", [eur.id])).rejects.toThrow(/CHECK/);
 
+    await expect(
+      createAccount(db, { name: 'Yen', kind: 'cash', currency: 'JPY' as never, openingBalanceMinor: 0 }),
+    ).rejects.toMatchObject({ code: 'currency' });
+
     // Import tables exist.
     const tables = await db.all<{ name: string }>(
       "SELECT name FROM sqlite_master WHERE type = 'table' AND name LIKE 'import%' OR name = 'category_rules'",

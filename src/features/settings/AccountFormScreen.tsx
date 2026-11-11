@@ -11,8 +11,9 @@ import type { CurrencyCode } from '../../domain/money/currency';
 import { amountToInput, parseAmount } from '../../domain/money/format';
 import { usePreferences } from '../../state/preferences';
 import { Button } from '../../ui/Button';
+import { CurrencySelect } from '../../ui/CurrencySelect';
 import { Card } from '../../ui/Card';
-import { Chip, ChipRow, SegmentedControl } from '../../ui/Chip';
+import { Chip, ChipRow } from '../../ui/Chip';
 import { AmountField, FieldShell, TextField, amountErrorKey } from '../../ui/Field';
 import { Icon } from '../../ui/Icon';
 import { Screen } from '../../ui/Screen';
@@ -21,7 +22,7 @@ import { EmptyState, QueryView } from '../../ui/states';
 import { Text } from '../../ui/Text';
 import { space } from '../../ui/theme/tokens';
 import { useTheme } from '../../ui/theme/ThemeProvider';
-import { currencyLabel, errorMessage } from '../transactions/helpers';
+import { errorMessage } from '../transactions/helpers';
 import { SwitchRow } from './SwitchRow';
 
 const KINDS: readonly AccountKind[] = ['checking', 'savings', 'cash', 'credit', 'other'];
@@ -138,15 +139,7 @@ function Form({ account }: { account: Account | null }) {
             <Text variant="bodyStrong">{t(`common.currency.${currency}`)}</Text>
           </View>
         ) : (
-          <SegmentedControl<CurrencyCode>
-            testID="account-currency"
-            value={currency}
-            options={[
-              { value: 'CAD', label: currencyLabel('CAD') },
-              { value: 'XOF', label: currencyLabel('XOF') },
-            ]}
-            onChange={setCurrency}
-          />
+          <CurrencySelect testID="account-currency" value={currency} onChange={setCurrency} />
         )}
       </FieldShell>
 

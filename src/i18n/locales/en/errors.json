@@ -20,5 +20,6 @@
   "notFound": "This item no longer exists.",
   "description": "Keep the description under 120 characters.",
   "note": "Keep the note under 1000 characters.",
-  "generic": "Couldn't save. Try again."
+  "generic": "Couldn't save. Try again.",
+  "currency": "Pick a supported currency."
 }

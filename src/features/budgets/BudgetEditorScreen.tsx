@@ -9,7 +9,7 @@ import { deleteBudget, getBudget, saveBudget, type BudgetWithUsage } from '../..
 import { monthOf, type MonthKey } from '../../domain/dates';
 import type { Category } from '../../domain/models';
 import { isCurrencyCode, type CurrencyCode } from '../../domain/money/currency';
-import { amountToInput, parseAmount } from '../../domain/money/format';
+import { amountToInput, minorToDecimalString, parseAmount } from '../../domain/money/format';
 import { usePreferences, useToday } from '../../state/preferences';
 import { Button, IconButton } from '../../ui/Button';
 import { Card } from '../../ui/Card';
@@ -170,7 +170,7 @@ function Editor({
             onChangeText={(s) => setValues((v) => ({ ...v, [c.id]: s.replace(/[^0-9.,\s]/g, '') }))}
             keyboardType="decimal-pad"
             inputMode="decimal"
-            placeholder={currency === 'XOF' ? '0' : '0.00'}
+            placeholder={minorToDecimalString(0, currency)}
             error={errors[c.id]}
           />
         ))}

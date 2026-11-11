@@ -20,5 +20,6 @@
   "notFound": "Cet élément n'existe plus.",
   "description": "Gardez la description sous 120 caractères.",
   "note": "Gardez la note sous 1000 caractères.",
-  "generic": "Enregistrement impossible. Réessayez."
+  "generic": "Enregistrement impossible. Réessayez.",
+  "currency": "Choisissez une devise prise en charge."
 }

@@ -13,7 +13,8 @@ describe('settings', () => {
     await fireEvent.press(await screen.findByRole('tab', { name: 'Dark' }));
     await waitFor(async () => expect((await getPreferences(db)).theme).toBe('dark'));
 
-    await fireEvent.press(screen.getByRole('tab', { name: 'FCFA' }));
+    await fireEvent.press(screen.getByTestId('settings-currency'));
+    await fireEvent.press(await screen.findByRole('radio', { name: /XOF, FCFA/ }));
     await waitFor(async () => expect((await getPreferences(db)).primaryCurrency).toBe('XOF'));
 
     await fireEvent(screen.getByTestId('settings-hide'), 'valueChange', true);

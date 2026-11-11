@@ -10,11 +10,11 @@ import { listTransactions } from '../../data/repos/transactions';
 import { transactionsToCsv } from '../../domain/csv';
 import { todayIso } from '../../domain/dates';
 import type { AppLocale, ThemePreference } from '../../domain/models';
-import type { CurrencyCode } from '../../domain/money/currency';
 import { getSupabase } from '../../services/supabase';
 import { usePreferences } from '../../state/preferences';
 import { useSession } from '../../state/session';
 import { Button, IconButton } from '../../ui/Button';
+import { CurrencySelect } from '../../ui/CurrencySelect';
 import { Card } from '../../ui/Card';
 import { SegmentedControl } from '../../ui/Chip';
 import { TextField } from '../../ui/Field';
@@ -230,13 +230,9 @@ function CurrenciesSection() {
       <Text variant="label" color="textSecondary">
         {t('settings.currencies.primary')}
       </Text>
-      <SegmentedControl<CurrencyCode>
+      <CurrencySelect
         testID="settings-currency"
         value={prefs.primaryCurrency}
-        options={[
-          { value: 'CAD', label: currencyLabel('CAD') },
-          { value: 'XOF', label: currencyLabel('XOF') },
-        ]}
         onChange={(primaryCurrency) => void update({ primaryCurrency })}
       />
       <Text variant="caption" color="textSecondary">

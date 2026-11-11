@@ -2,8 +2,8 @@ import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, Pressable, StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 
-import type { CurrencyCode } from '../domain/money/currency';
-import { formatMoney, parseAmount, type ParseResult } from '../domain/money/format';
+import { currencyLabel, type CurrencyCode } from '../domain/money/currency';
+import { formatMoney, minorToDecimalString, parseAmount, type ParseResult } from '../domain/money/format';
 import { usePreferences } from '../state/preferences';
 import { Icon, type IconName } from './Icon';
 import { Text } from './Text';
@@ -149,7 +149,7 @@ export function AmountField({
           onChangeText={(s) => onChangeText(s.replace(/[^0-9.,\s]/g, ''))}
           keyboardType="decimal-pad"
           inputMode="decimal"
-          placeholder={currency === 'XOF' ? '0' : '0.00'}
+          placeholder={minorToDecimalString(0, currency)}
           placeholderTextColor={colors.textMuted}
           autoFocus={autoFocus}
           onFocus={() => setFocused(true)}
@@ -164,7 +164,7 @@ export function AmountField({
           style={[styles.pill, { backgroundColor: colors.accentSoft }]}
         >
           <Text variant="label" color="accentText">
-            {currency === 'XOF' ? 'FCFA' : currency}
+            {currencyLabel(currency)}
           </Text>
           {onCurrencyPress ? <Icon name="chevronDown" size={14} color={colors.accentText} /> : null}
         </Pressable>

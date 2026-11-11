@@ -7,11 +7,11 @@ import { useDb, useDbQuery } from '../../data/hooks';
 import { createGoal, getGoal, updateGoal } from '../../data/repos/planning';
 import type { IsoDate } from '../../domain/dates';
 import type { SavingsGoal } from '../../domain/models';
-import { CURRENCY_CODES, type CurrencyCode } from '../../domain/money/currency';
+import type { CurrencyCode } from '../../domain/money/currency';
 import { amountToInput, parseAmount } from '../../domain/money/format';
 import { usePreferences, useToday } from '../../state/preferences';
 import { Button } from '../../ui/Button';
-import { SegmentedControl } from '../../ui/Chip';
+import { CurrencySelect } from '../../ui/CurrencySelect';
 import { AmountField, amountErrorKey, FieldShell, SelectField, TextField } from '../../ui/Field';
 import { formatDate } from '../../ui/format';
 import { Icon, PICKABLE_ICONS } from '../../ui/Icon';
@@ -139,11 +139,7 @@ function GoalForm({
         </Text>
       ) : (
         <FieldShell label={t('savings.form.currency')}>
-          <SegmentedControl
-            value={currency}
-            onChange={setCurrency}
-            options={CURRENCY_CODES.map((c) => ({ value: c, label: currencyLabel(c) }))}
-          />
+          <CurrencySelect testID="goal-currency" value={currency} onChange={setCurrency} />
         </FieldShell>
       )}
       <SelectField

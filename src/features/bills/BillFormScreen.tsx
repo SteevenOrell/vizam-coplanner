@@ -8,10 +8,11 @@ import { listAccounts, listCategories } from '../../data/repos/core';
 import { createBill, deleteBill, getBill, updateBill } from '../../data/repos/planning';
 import type { IsoDate } from '../../domain/dates';
 import type { Account, BillFrequency, Category, RecurringBill } from '../../domain/models';
-import { CURRENCY_CODES, type CurrencyCode } from '../../domain/money/currency';
+import type { CurrencyCode } from '../../domain/money/currency';
 import { amountToInput, parseAmount } from '../../domain/money/format';
 import { usePreferences, useToday } from '../../state/preferences';
 import { Button, IconButton } from '../../ui/Button';
+import { CurrencySelect } from '../../ui/CurrencySelect';
 import { Chip, ChipRow, SegmentedControl } from '../../ui/Chip';
 import { AmountField, amountErrorKey, FieldShell, SelectField, TextField } from '../../ui/Field';
 import { formatDate } from '../../ui/format';
@@ -180,11 +181,7 @@ function BillForm({
         error={errors.amount}
       />
       <FieldShell label={t('bills.form.currency')}>
-        <SegmentedControl
-          value={currency}
-          onChange={changeCurrency}
-          options={CURRENCY_CODES.map((c) => ({ value: c, label: currencyLabel(c) }))}
-        />
+        <CurrencySelect testID="bill-currency" value={currency} onChange={changeCurrency} />
       </FieldShell>
       <SelectField
         label={t('bills.form.account')}

@@ -1,5 +1,5 @@
 import { isIsoDate } from '../../domain/dates';
-import { MAX_AMOUNT_MINOR, type CurrencyCode } from '../../domain/money/currency';
+import { isCurrencyCode, MAX_AMOUNT_MINOR, type CurrencyCode } from '../../domain/money/currency';
 import type { Account, AccountKind, Category, Preferences, TxKind } from '../../domain/models';
 import type { SqlDriver } from '../db/driver';
 import {
@@ -24,6 +24,11 @@ export function requireAmount(amountMinor: number, { allowZero = false } = {}): 
   if (!Number.isSafeInteger(amountMinor) || amountMinor < (allowZero ? 0 : 1) || amountMinor > MAX_AMOUNT_MINOR) {
     throw new ValidationError('amount');
   }
+}
+
+/** Only currencies in src/domain/money/currency.ts (the database only checks the ISO shape). */
+export function requireCurrency(currency: string): void {
+  if (!isCurrencyCode(currency)) throw new ValidationError('currency');
 }
 
 export function requireDate(date: string, code = 'date'): void {
@@ -69,8 +74,9 @@ export async function listAccountBalances(db: SqlDriver): Promise<AccountWithBal
   return accounts.map((a) => ({ ...a, balanceMinor: a.openingBalanceMinor + (net.get(a.id) ?? 0) }));
 }
 
-export function createAccount(db: SqlDriver, input: AccountInput): Promise<Account> {
+export async function createAccount(db: SqlDriver, input: AccountInput): Promise<Account> {
   const name = requireText(input.name, 60, 'name', { min: 1 });
+  requireCurrency(input.currency);
   if (!Number.isSafeInteger(input.openingBalanceMinor) || Math.abs(input.openingBalanceMinor) > MAX_AMOUNT_MINOR) {
     throw new ValidationError('amount');
   }
@@ -120,7 +126,7 @@ export async function categoryMap(db: SqlDriver): Promise<Map<string, Category>>
   return new Map(rows.map((r) => [r.id!, fromRow(categoriesSpec, r)]));
 }
 
-export function createCategory(
+export async function createCategory(
   db: SqlDriver,
   input: Pick<Category, 'name' | 'kind' | 'icon' | 'color'>,
 ): Promise<Category> {
@@ -182,6 +188,7 @@ export async function updatePreferences(db: SqlDriver, patch: Partial<Preference
   return write(db, async () => {
     const next = { ...(await getPreferences(db)), ...patch };
     next.displayName = requireText(next.displayName, 80, 'name');
+    requireCurrency(next.primaryCurrency);
     if (!Number.isInteger(next.billReminderDays) || next.billReminderDays < 0 || next.billReminderDays > 14) {
       throw new ValidationError('reminderDays');
     }
