@@ -22,6 +22,25 @@ jest.mock('expo-notifications', () => ({
   SchedulableTriggerInputTypes: { DATE: 'date' },
 }));
 
+// expo-router: navigation calls are recorded on routerMock; params come from setRouteParams (src/test/render.tsx).
+jest.mock('expo-router', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { routerMock } = require('./src/test/routerMock');
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const React = require('react');
+  const Passthrough = ({ children }: { children?: unknown }) => children ?? null;
+  return {
+    router: routerMock,
+    useRouter: () => routerMock,
+    useLocalSearchParams: () => (globalThis as { __routeParams?: Record<string, string> }).__routeParams ?? {},
+    useFocusEffect: (cb: () => void | (() => void)) => React.useEffect(cb, [cb]),
+    Redirect: () => null,
+    Link: Passthrough,
+    Stack: Object.assign(Passthrough, { Screen: () => null }),
+    Tabs: Object.assign(Passthrough, { Screen: () => null }),
+  };
+});
+
 // UI flows that save through SQLite can exceed the default 1 s waitFor on a cold run.
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 require('@testing-library/react-native').configure({ asyncUtilTimeout: 5000 });
