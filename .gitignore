@@ -1,0 +1,16 @@
+node_modules/
+.expo/
+dist/
+web-build/
+coverage/
+expo-env.d.ts
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+*.tsbuildinfo
+/screenshots-tmp/
+/ios
+/android
+docs/image-requests/returned/
