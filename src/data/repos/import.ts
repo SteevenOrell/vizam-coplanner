@@ -128,10 +128,10 @@ export function upsertCategoryRule(
     const category = await getCategory(db, input.categoryId);
     if (!category || category.kind !== input.kind) throw new ValidationError('category');
     const now = nowIso();
-    const existing = await db.first<{ id: string }>('SELECT id FROM category_rules WHERE lower(pattern) = ? AND kind = ?', [
-      pattern.toLowerCase(),
-      input.kind,
-    ]);
+    const existing = await db.first<{ id: string }>(
+      'SELECT id FROM category_rules WHERE lower(pattern) = ? AND kind = ?',
+      [pattern.toLowerCase(), input.kind],
+    );
     const id = existing?.id ?? newId();
     if (existing) {
       await db.run('UPDATE category_rules SET category_id = ?, updated_at = ? WHERE id = ?', [

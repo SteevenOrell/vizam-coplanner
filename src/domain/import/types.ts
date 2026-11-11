@@ -19,7 +19,8 @@ export type Delimiter = ',' | ';' | '\t';
  * Date layouts the importer understands. `text` covers month names in English and French in either order
  * ("3 Nov 2026", "03 nov. 2026", "Nov 3, 2026"). Any time part is ignored.
  */
-export type DateFormat = 'iso' | 'ymd-slash' | 'ymd-compact' | 'dmy-slash' | 'mdy-slash' | 'dmy-dash' | 'dmy-dot' | 'text';
+export type DateFormat =
+  'iso' | 'ymd-slash' | 'ymd-compact' | 'dmy-slash' | 'mdy-slash' | 'dmy-dash' | 'dmy-dot' | 'text';
 export const DATE_FORMATS: readonly DateFormat[] = [
   'iso',
   'ymd-slash',

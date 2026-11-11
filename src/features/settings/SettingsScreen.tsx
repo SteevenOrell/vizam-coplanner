@@ -419,6 +419,13 @@ function DataSection() {
         onPress={() => void exportCsv()}
         testID="settings-export"
       />
+      <Button
+        label={t('import.title')}
+        icon="arrowDown"
+        variant="secondary"
+        onPress={() => router.push('/import')}
+        testID="settings-import"
+      />
     </Section>
   );
 }

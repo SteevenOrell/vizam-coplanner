@@ -18,10 +18,7 @@ const MONTHS: Record<string, number> = {
 }; // prettier-ignore
 
 function monthNumber(token: string): number | null {
-  const key = token
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ.]/g, '');
+  const key = token.toLowerCase().normalize('NFD').replace(/[̀-ͯ.]/g, '');
   return MONTHS[key] ?? null;
 }
 

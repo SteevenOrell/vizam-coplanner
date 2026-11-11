@@ -7,7 +7,7 @@ import { decodeBytes, parseImportText } from '../csv';
 import { buildDrafts, totalsOf } from '../drafts';
 import { detectDuplicates } from '../duplicates';
 import { analyzeDateColumn, detectLayout, mappingFits, parseMapping } from '../layout';
-import { ImportLimitError, MAX_IMPORT_ROWS, type ImportMapping } from '../types';
+import { ImportLimitError, MAX_IMPORT_ROWS } from '../types';
 
 export function fixture(name: string): string {
   const bytes = readFileSync(join(__dirname, '../../../../tests/fixtures/bank', name));
@@ -132,7 +132,12 @@ describe('French fixture (Windows-1252, semicolon, DD/MM/YYYY, comma decimals, o
 
   it('suggests categories from French keywords, accents ignored', () => {
     const { drafts } = buildDrafts(file, guess.mapping, 'CAD');
-    const id = (s: string) => suggestCategory(drafts.find((d) => d.description.includes(s))!, [], CATEGORIES)?.categoryId;
+    const id = (s: string) =>
+      suggestCategory(
+        drafts.find((d) => d.description.includes(s))!,
+        [],
+        CATEGORIES,
+      )?.categoryId;
     expect(id('PAIE')).toBe('salary');
     expect(id('LOYER')).toBe('housing');
     expect(id('ÉPICERIE')).toBe('groceries');
@@ -155,7 +160,13 @@ describe('XOF fixture (whole francs, ISO dates)', () => {
   const guess = detectLayout(file, 'XOF');
 
   it('detects the layout; the currency column is ignored', () => {
-    expect(guess.mapping).toMatchObject({ dateCol: 0, descriptionCol: 1, amountCol: 2, dateFormat: 'iso', decimalMark: '.' });
+    expect(guess.mapping).toMatchObject({
+      dateCol: 0,
+      descriptionCol: 1,
+      amountCol: 2,
+      dateFormat: 'iso',
+      decimalMark: '.',
+    });
   });
 
   it('reads whole francs and accepts 1500.00', () => {
@@ -168,8 +179,11 @@ describe('XOF fixture (whole francs, ISO dates)', () => {
   it('suggests West African keywords', () => {
     const { drafts } = buildDrafts(file, guess.mapping, 'XOF');
     const id = (s: string, kind?: string) =>
-      suggestCategory(drafts.find((d) => d.description.includes(s) && (!kind || d.kind === kind))!, [], CATEGORIES)
-        ?.categoryId;
+      suggestCategory(
+        drafts.find((d) => d.description.includes(s) && (!kind || d.kind === kind))!,
+        [],
+        CATEGORIES,
+      )?.categoryId;
     expect(id('ORANGE MONEY')).toBe('family');
     expect(id('SUPERMARCHE')).toBe('groceries');
     expect(id('RECHARGE')).toBe('utilities');
@@ -224,7 +238,9 @@ describe('layout detection edge cases', () => {
   });
 
   it('marks bad rows with their error and keeps the line numbers', () => {
-    const f = parseImportText('Date,Description,Amount\n2026-11-01,A,-1.00\nnot a date,B,-2.00\n2026-11-03,C,\n2026-11-04,D,abc\n2026-11-05,E,-1.234\n');
+    const f = parseImportText(
+      'Date,Description,Amount\n2026-11-01,A,-1.00\nnot a date,B,-2.00\n2026-11-03,C,\n2026-11-04,D,abc\n2026-11-05,E,-1.234\n',
+    );
     const g = detectLayout(f, 'CAD');
     // "not a date" breaks detection, so pin the format the way the user would.
     const r = buildDrafts(f, { ...g.mapping, dateFormat: 'iso' }, 'CAD');
@@ -239,7 +255,9 @@ describe('layout detection edge cases', () => {
   });
 
   it('cleans descriptions: control characters and length', () => {
-    const f = parseImportText(`Date,Description,Amount\n2026-11-01,"  Hello\u0007\u0000  World  ${'x'.repeat(200)}",-1.00\n`);
+    const f = parseImportText(
+      `Date,Description,Amount\n2026-11-01,"  Hello\u0007\u0000  World  ${'x'.repeat(200)}",-1.00\n`,
+    );
     const r = buildDrafts(f, detectLayout(f, 'CAD').mapping, 'CAD');
     expect(r.drafts[0]!.description.startsWith('Hello World xxx')).toBe(true);
     expect(r.drafts[0]!.description).toHaveLength(120);
@@ -278,7 +296,9 @@ describe('duplicates', () => {
   });
 
   it('matches existing transactions: same kind and amount, date within a day, similar description', () => {
-    const existing = [{ kind: 'expense' as const, amountMinor: 1250, occurredOn: '2026-11-03', description: 'Metro épicerie' }];
+    const existing = [
+      { kind: 'expense' as const, amountMinor: 1250, occurredOn: '2026-11-03', description: 'Metro épicerie' },
+    ];
     const drafts = [
       draft(1, '2026-11-04', 'METRO EPICERIE #12', 1250), // +1 day, contains match
       draft(2, '2026-11-05', 'METRO EPICERIE #12', 1250), // 2 days away
@@ -290,7 +310,9 @@ describe('duplicates', () => {
   });
 
   it('matches on shared words and treats an empty description as similar', () => {
-    const existing = [{ kind: 'expense' as const, amountMinor: 500, occurredOn: '2026-11-03', description: 'Lunch with Sam' }];
+    const existing = [
+      { kind: 'expense' as const, amountMinor: 500, occurredOn: '2026-11-03', description: 'Lunch with Sam' },
+    ];
     expect(detectDuplicates([draft(1, '2026-11-03', 'LUNCH SAM CARD 99', 500)], existing).get(1)).toBe('existing');
     expect(detectDuplicates([draft(1, '2026-11-03', '', 500)], existing).get(1)).toBe('existing');
   });

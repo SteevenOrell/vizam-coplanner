@@ -36,7 +36,10 @@ export function similarDescriptions(a: string, b: string): boolean {
  * - 'file': an earlier row of this file has the same date, kind, amount and description (the later one is flagged).
  * Rows with an error are never flagged. `existing` must already be limited to the same account.
  */
-export function detectDuplicates(drafts: readonly ImportDraft[], existing: readonly ExistingTx[]): Map<number, DuplicateKind> {
+export function detectDuplicates(
+  drafts: readonly ImportDraft[],
+  existing: readonly ExistingTx[],
+): Map<number, DuplicateKind> {
   const out = new Map<number, DuplicateKind>();
   const byKey = new Map<string, ExistingTx[]>();
   for (const e of existing) {

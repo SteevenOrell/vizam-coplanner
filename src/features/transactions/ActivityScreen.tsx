@@ -197,12 +197,21 @@ export function ActivityScreen() {
       scroll={false}
       contentStyle={styles.fill}
       right={
-        <IconButton
-          icon="plus"
-          label={t('common.tabs.add')}
-          tone="soft"
-          onPress={() => router.push('/transaction/new')}
-        />
+        <>
+          <IconButton
+            icon="download"
+            label={t('import.title')}
+            tone="soft"
+            onPress={() => router.push('/import')}
+            testID="activity-import"
+          />
+          <IconButton
+            icon="plus"
+            label={t('common.tabs.add')}
+            tone="soft"
+            onPress={() => router.push('/transaction/new')}
+          />
+        </>
       }
       testID="activity-screen"
     >

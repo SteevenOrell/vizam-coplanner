@@ -16,8 +16,10 @@ import {
 
 /** Trims, replaces control characters and runs of whitespace, caps at 120 characters. */
 export function cleanDescription(raw: string): string {
-  // eslint-disable-next-line no-control-regex
-  const s = raw.replace(/[\u0000-\u001f\u007f-\u009f]+/g, ' ').replace(/\s{2,}/g, ' ').trim();
+  const s = raw
+    .replace(/[\u0000-\u001f\u007f-\u009f]+/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
   return s.length > MAX_DESCRIPTION ? s.slice(0, MAX_DESCRIPTION).trimEnd() : s;
 }
 
@@ -27,7 +29,11 @@ type Money = { kind: TxKind; minor: number } | { error: Exclude<DraftError, 'dat
  * Turns the amount cell(s) into a kind and a positive amount.
  * Signed: negative = expense. Split: debit = expense, credit = income. `invertSign` flips both.
  */
-function readMoney(cells: { amount?: string; debit?: string; credit?: string }, m: ImportMapping, cur: CurrencyCode): Money {
+function readMoney(
+  cells: { amount?: string; debit?: string; credit?: string },
+  m: ImportMapping,
+  cur: CurrencyCode,
+): Money {
   const flip = (k: TxKind): TxKind => (m.invertSign ? (k === 'income' ? 'expense' : 'income') : k);
   if (m.amountMode === 'signed') {
     const r = parseImportAmount(cells.amount ?? '', cur, m.decimalMark);

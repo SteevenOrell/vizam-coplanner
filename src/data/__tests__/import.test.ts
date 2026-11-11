@@ -42,8 +42,10 @@ interface Ctx {
 async function setup(): Promise<Ctx> {
   const db = openBetterSqliteDriver();
   await migrate(db);
-  const cad = (await createAccount(db, { name: 'Chequing', kind: 'checking', currency: 'CAD', openingBalanceMinor: 0 })).id;
-  const xof = (await createAccount(db, { name: 'Mobile money', kind: 'cash', currency: 'XOF', openingBalanceMinor: 0 })).id;
+  const cad = (await createAccount(db, { name: 'Chequing', kind: 'checking', currency: 'CAD', openingBalanceMinor: 0 }))
+    .id;
+  const xof = (await createAccount(db, { name: 'Mobile money', kind: 'cash', currency: 'XOF', openingBalanceMinor: 0 }))
+    .id;
   const mk = (name: string, kind: 'income' | 'expense', icon: string) =>
     createCategory(db, { name, kind, icon, color: '#336699' }).then((c) => c.id);
   return {
@@ -122,7 +124,9 @@ describe('importTransactions', () => {
       code: 'category',
       index: 1,
     });
-    await expect(importTransactions(db, cad, [row({ categoryId: 'nope' })], 's')).rejects.toMatchObject({ code: 'category' });
+    await expect(importTransactions(db, cad, [row({ categoryId: 'nope' })], 's')).rejects.toMatchObject({
+      code: 'category',
+    });
     await expect(importTransactions(db, 'missing', [row({ categoryId: groceries })], 's')).rejects.toMatchObject({
       code: 'account',
     });
@@ -152,7 +156,9 @@ describe('undoImport', () => {
     expect(left.map((t) => t.description).sort()).toEqual(['Manual', 'Other batch']);
     expect(left.some((t) => t.id === manual.id)).toBe(true);
     // Soft delete: the rows still exist (so the deletion syncs).
-    expect((await db.first<{ n: number }>('SELECT COUNT(*) AS n FROM transactions WHERE deleted_at IS NOT NULL'))!.n).toBe(2);
+    expect(
+      (await db.first<{ n: number }>('SELECT COUNT(*) AS n FROM transactions WHERE deleted_at IS NOT NULL'))!.n,
+    ).toBe(2);
     expect((await listImportBatches(db)).map((x) => x.id)).toEqual([b.batchId]);
     expect(await count(db, 'import_batch_items')).toBe(1);
     await expect(undoImport(db, a.batchId)).rejects.toBeInstanceOf(ValidationError);
@@ -179,9 +185,15 @@ describe('category rules', () => {
     await upsertCategoryRule(db, { pattern: 'metro', kind: 'income', categoryId: salary });
     expect(await listCategoryRules(db)).toHaveLength(2);
 
-    await expect(upsertCategoryRule(db, { pattern: 'x', kind: 'expense', categoryId: groceries })).rejects.toMatchObject({ code: 'pattern' });
-    await expect(upsertCategoryRule(db, { pattern: 'abc', kind: 'expense', categoryId: salary })).rejects.toMatchObject({ code: 'category' });
-    await expect(upsertCategoryRule(db, { pattern: 'abc', kind: 'expense', categoryId: 'nope' })).rejects.toMatchObject({ code: 'category' });
+    await expect(
+      upsertCategoryRule(db, { pattern: 'x', kind: 'expense', categoryId: groceries }),
+    ).rejects.toMatchObject({ code: 'pattern' });
+    await expect(upsertCategoryRule(db, { pattern: 'abc', kind: 'expense', categoryId: salary })).rejects.toMatchObject(
+      { code: 'category' },
+    );
+    await expect(upsertCategoryRule(db, { pattern: 'abc', kind: 'expense', categoryId: 'nope' })).rejects.toMatchObject(
+      { code: 'category' },
+    );
 
     await deleteCategoryRule(db, r1.id);
     expect(await listCategoryRules(db)).toHaveLength(1);
@@ -220,47 +232,59 @@ describe('whole pipeline on the fixtures', () => {
     ['canadian.csv', 'CAD', 10, 1, 245000, 142915],
     ['french-cp1252.csv', 'CAD', 8, 1, 245000, 85000 + 6348 + 1290 + 1099 + 340 + 123456 + 7420],
     ['xof.csv', 'XOF', 7, 2, 375000, 147000],
-  ] as const)('%s: parse, map, dedupe, categorise, import, undo', async (name, currency, n, incomes, inMinor, outMinor) => {
-    const ctx = await setup();
-    const accountId = currency === 'CAD' ? ctx.cad : ctx.xof;
-    const file = parseImportText(fixtureText(name));
-    const { mapping } = detectLayout(file, currency);
-    const { drafts, errorCount } = buildDrafts(file, mapping, currency);
-    expect(errorCount).toBe(0);
-    expect(drafts).toHaveLength(n);
+  ] as const)(
+    '%s: parse, map, dedupe, categorise, import, undo',
+    async (name, currency, n, incomes, inMinor, outMinor) => {
+      const ctx = await setup();
+      const accountId = currency === 'CAD' ? ctx.cad : ctx.xof;
+      const file = parseImportText(fixtureText(name));
+      const { mapping } = detectLayout(file, currency);
+      const { drafts, errorCount } = buildDrafts(file, mapping, currency);
+      expect(errorCount).toBe(0);
+      expect(drafts).toHaveLength(n);
 
-    const categories = await listCategories(ctx.db);
-    const rules = await listCategoryRules(ctx.db);
-    const rows: ImportRow[] = drafts.map((d) => ({
-      occurredOn: d.occurredOn!,
-      description: d.description,
-      amountMinor: d.amountMinor,
-      kind: d.kind,
-      categoryId: suggestCategory(d, rules, categories)?.categoryId ?? null,
-    }));
-    const first = await importTransactions(ctx.db, accountId, rows, name);
-    expect(first.count).toBe(n);
-    const txs = await listTransactions(ctx.db, { accountId });
-    expect(txs.filter((t) => t.kind === 'income')).toHaveLength(incomes);
-    expect(txs.filter((t) => t.kind === 'income').reduce((s, t) => s + t.amountMinor, 0)).toBe(inMinor);
-    expect(txs.filter((t) => t.kind === 'expense').reduce((s, t) => s + t.amountMinor, 0)).toBe(outMinor);
-    expect(txs.every((t) => t.currency === currency)).toBe(true);
-    expect(txs.some((t) => t.categoryId !== null)).toBe(true);
+      const categories = await listCategories(ctx.db);
+      const rules = await listCategoryRules(ctx.db);
+      const rows: ImportRow[] = drafts.map((d) => ({
+        occurredOn: d.occurredOn!,
+        description: d.description,
+        amountMinor: d.amountMinor,
+        kind: d.kind,
+        categoryId: suggestCategory(d, rules, categories)?.categoryId ?? null,
+      }));
+      const first = await importTransactions(ctx.db, accountId, rows, name);
+      expect(first.count).toBe(n);
+      const txs = await listTransactions(ctx.db, { accountId });
+      expect(txs.filter((t) => t.kind === 'income')).toHaveLength(incomes);
+      expect(txs.filter((t) => t.kind === 'income').reduce((s, t) => s + t.amountMinor, 0)).toBe(inMinor);
+      expect(txs.filter((t) => t.kind === 'expense').reduce((s, t) => s + t.amountMinor, 0)).toBe(outMinor);
+      expect(txs.every((t) => t.currency === currency)).toBe(true);
+      expect(txs.some((t) => t.categoryId !== null)).toBe(true);
 
-    // Importing the same file again: every row (except in-file repeats) is flagged as already there.
-    const dups = await findDuplicates(ctx.db, accountId, drafts);
-    expect(dups.size).toBe(drafts.length);
-    expect([...dups.values()].every((k) => k === 'existing')).toBe(true);
+      // Importing the same file again: every row (except in-file repeats) is flagged as already there.
+      const dups = await findDuplicates(ctx.db, accountId, drafts);
+      expect(dups.size).toBe(drafts.length);
+      expect([...dups.values()].every((k) => k === 'existing')).toBe(true);
 
-    await expect(undoImport(ctx.db, first.batchId)).resolves.toBe(n);
-    expect(await listTransactions(ctx.db)).toHaveLength(0);
-    expect((await findDuplicates(ctx.db, accountId, drafts)).size).toBe(name === 'canadian.csv' ? 1 : 0);
-  });
+      await expect(undoImport(ctx.db, first.batchId)).resolves.toBe(n);
+      expect(await listTransactions(ctx.db)).toHaveLength(0);
+      expect((await findDuplicates(ctx.db, accountId, drafts)).size).toBe(name === 'canadian.csv' ? 1 : 0);
+    },
+  );
 
   it('findDuplicates does not look at other accounts', async () => {
     const { db, cad, xof } = await setup();
     await importTransactions(db, cad, [row()], 'a');
-    const drafts = [{ line: 2, occurredOn: '2026-11-03', description: 'Coffee', amountMinor: 450, kind: 'expense' as const, error: null }];
+    const drafts = [
+      {
+        line: 2,
+        occurredOn: '2026-11-03',
+        description: 'Coffee',
+        amountMinor: 450,
+        kind: 'expense' as const,
+        error: null,
+      },
+    ];
     expect((await findDuplicates(db, cad, drafts)).get(2)).toBe('existing');
     expect((await findDuplicates(db, xof, drafts)).size).toBe(0);
   });
