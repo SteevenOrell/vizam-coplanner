@@ -73,10 +73,25 @@ Architecture, money rules and design identity: `docs/ARCHITECTURE.md`.
 - Tests: `npm test`, `npm run test:db`. Lint/format: `npm run lint`, `npx prettier --check .`.
 - Env var names (values only in the git-ignored `.env`): `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`.
 
+## Deploy (Vercel)
+
+- Config is in `vercel.json`: install `npm ci --ignore-scripts`, build `npx expo export --platform web`, output `dist`,
+  SPA fallback to `index.html`, security + cache headers. Node 22 (`engines`). Framework preset: Other.
+- **No environment variables are required**: without `EXPO_PUBLIC_SUPABASE_*` the app runs in local demo mode. When
+  the Supabase project exists, add `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY` as "config" visibility
+  (public anon key; never the service-role key) and redeploy.
+- Verified (2026-11-12): production build served like Vercel (`node scripts/serve-dist.mjs`, `node scripts/prod-probe.mjs`):
+  no console errors or warnings, onboarding → demo data, deep links, reload persistence, import screen, no overflow at 300 px.
+- Web limits: the local database needs a secure context (https or localhost); some in-app browsers / private modes
+  block it and the app then shows its error state with Retry. Vercel is https, so normal browsers are fine.
+- Preview deployments are behind Vercel Authentication by default (team members only).
+- GitHub remote and push were blocked by the session's safety checks; Steeven creates the private repo
+  `SteevenOrell/vizam-coplanner` and pushes `main` (= `feat/screens`) himself, then imports it in Vercel.
+
 ## Next step
 
-Steeven's batched items below. Then: device test in Expo Go, end-to-end cloud sync test on the real Supabase
-project, and the importer against a real anonymised bank export.
+After the push: import the repo in Vercel, check the preview on a phone (home, demo data, budgets, add transaction,
+import, dark mode, 240/390 px), then Supabase project + keys, EAS, device test.
 
 ## Waiting for approval / Steeven only
 
