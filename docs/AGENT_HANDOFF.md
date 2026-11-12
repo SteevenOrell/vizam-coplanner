@@ -85,13 +85,22 @@ Architecture, money rules and design identity: `docs/ARCHITECTURE.md`.
 - Web limits: the local database needs a secure context (https or localhost); some in-app browsers / private modes
   block it and the app then shows its error state with Retry. Vercel is https, so normal browsers are fine.
 - Preview deployments are behind Vercel Authentication by default (team members only).
-- GitHub: private repo `SteevenOrell/vizam-coplanner` (remote `origin`); `main` and `feat/screens` pushed at the same commit
-  (2026-11-12). Next: import the repo in Vercel (Framework Preset: Other, no env vars) and check the preview.
+- GitHub: private repo `SteevenOrell/vizam-coplanner` (remote `origin`); `main` = `feat/screens`.
+- Vercel (Hobby team "Steeven's projects", project `vizam-coplanner`, connected to the repo, Framework Preset Other, no env vars):
+  production **https://vizam-coplanner.vercel.app** (from `main`), branch preview
+  https://vizam-coplanner-git-feat-screens-steeven-s-projects.vercel.app (behind Vercel sign-in).
+  Verified live 2026-11-12: `node scripts/prod-probe.mjs https://vizam-coplanner.vercel.app` passes (no console errors,
+  demo data, deep links, reload persistence, import, 300 px), security headers and immutable asset caching present.
+- **Commit author must be the GitHub no-reply address** (repo-local git config; global config is the company email).
+  Vercel Hobby blocks deployments from commits whose email is not linked to the GitHub account (the first build
+  was "Blocked" for that reason). Alternative: add the company email to the GitHub account.
+- Vercel CLI: `npx vercel@latest` (logged in as steevenwemin). Local `vercel deploy` upload failed on this network
+  ("Upload aborted"); deploy by pushing to GitHub instead. In Git Bash use `MSYS_NO_PATHCONV=1` with `vercel curl`.
 
 ## Next step
 
-After the push: import the repo in Vercel, check the preview on a phone (home, demo data, budgets, add transaction,
-import, dark mode, 240/390 px), then Supabase project + keys, EAS, device test.
+Phone check of the production site (splash, demo data, budgets, add transaction, import, dark mode), then the Supabase
+project + keys (add `EXPO_PUBLIC_SUPABASE_*` in Vercel as config values and redeploy), EAS, device test in Expo Go.
 
 ## Waiting for approval / Steeven only
 
