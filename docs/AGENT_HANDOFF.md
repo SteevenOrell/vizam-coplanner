@@ -8,8 +8,8 @@ Architecture, money rules and design identity: `docs/ARCHITECTURE.md`.
 
 ## Repository
 
-- Path: `C:\Users\SteevenWemin\Documents\Projects\vizam-coplanner`. Remote: none (nothing pushed).
-- Branches: `feat/setup` → `feat/data-layer` → `feat/screens` (current, contains everything). `main` has no commits.
+- Path: `C:\Users\SteevenWemin\Documents\Projects\vizam-coplanner`. Remote: `origin` (GitHub, private).
+- Branches: `feat/setup` → `feat/data-layer` → `feat/screens` (current, contains everything); `main` = `feat/screens`.
 - Agent worktrees under `.claude/worktrees/` are leftovers (their work is merged or copied); jest and Metro ignore
   `.claude/`. They can be removed with `git worktree remove --force <path>` once nobody needs them.
 
@@ -85,8 +85,8 @@ Architecture, money rules and design identity: `docs/ARCHITECTURE.md`.
 - Web limits: the local database needs a secure context (https or localhost); some in-app browsers / private modes
   block it and the app then shows its error state with Retry. Vercel is https, so normal browsers are fine.
 - Preview deployments are behind Vercel Authentication by default (team members only).
-- GitHub remote and push were blocked by the session's safety checks; Steeven creates the private repo
-  `SteevenOrell/vizam-coplanner` and pushes `main` (= `feat/screens`) himself, then imports it in Vercel.
+- GitHub: private repo `SteevenOrell/vizam-coplanner` (remote `origin`); `main` and `feat/screens` pushed at the same commit
+  (2026-11-12). Next: import the repo in Vercel (Framework Preset: Other, no env vars) and check the preview.
 
 ## Next step
 
