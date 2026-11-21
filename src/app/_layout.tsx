@@ -23,10 +23,12 @@ import { SnackbarProvider } from '../ui/Snackbar';
 import { ErrorState } from '../ui/states';
 import { ThemeProvider, useTheme } from '../ui/theme/ThemeProvider';
 import { installWebLayoutRules } from '../ui/webLayout';
+import { installWebAnalytics } from '../ui/webAnalytics';
 
 void SplashScreen.preventAutoHideAsync().catch(() => undefined);
 initI18n();
 installWebLayoutRules();
+installWebAnalytics();
 
 function Maintenance() {
   useNotificationMaintenance();
